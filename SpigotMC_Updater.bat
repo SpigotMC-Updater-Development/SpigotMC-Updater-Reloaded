@@ -26,6 +26,7 @@ set content=
 for /f "delims=" %%i in ('type config\gitlocation.txt') do set content=%%i
 
 @echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573. Updated and maintained by ShadowCable.
+echo.
 @echo Do you want to Check for updates 
 Set /P _2=(Y, N) || Set _2=NothingChosen
 If "%_2%"=="NothingChosen" goto :startup
@@ -36,7 +37,7 @@ If /i "%_2%"=="n" goto startup
 
 :autoupdate
 @echo I am a dummy file xD >> tasks\session.txt
-start "SpigotMC Updater | Auto Update" tasks\update.bat
+start "SpigotMC Updater | Auto Update" update.bat
 
 exit
 
@@ -46,11 +47,6 @@ If exist %content% (goto boot2) else (@echo bash.exe was not found. Download, or
 Goto error)
 
 :boot2
-echo MSGBOX "Make sure to always backup your files incase an update breaks" > %temp%\TEMPmessage.vbs
-call %temp%\TEMPmessage.vbs
-del %temp%\TEMPmessage.vbs /f /q
-
-:start
 if Exist menu.bat (goto ready) else (goto error2)
 
 :ready

@@ -3,11 +3,11 @@
 echo.
 @echo ================ {Command List} ================
 echo.
-@echo task update: Updates Buildtools to latest version
+@echo task copy: Will be implemented later
 echo.
 @echo ------------------------------------------------
 echo.
-@echo help: Just added it if you want to spam it lol
+@echo task update: Updates Buildtools to latest version
 echo.
 @echo ------------------------------------------------
 echo.
@@ -27,7 +27,15 @@ echo.
 echo.
 @echo ------------------------------------------------
 echo.
+@echo program changelog: Shows Changelogs
+echo.
+@echo ------------------------------------------------
+echo.
 @echo program update: Updates this script
+echo.
+@echo ------------------------------------------------
+echo.
+@echo help: Just added it if you want to spam it lol
 echo.
 @echo ------------------------------------------------
 echo.

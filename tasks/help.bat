@@ -29,7 +29,7 @@ echo.
 echo.
 @echo task plugin: Runs Plugin-Fixer
 echo.
-@echo -------------------------------------------------
+@echo =================================================
 echo.
 echo.
 echo.
@@ -41,7 +41,7 @@ echo.
 echo.
 @echo program update: Updates this script
 echo.
-@echo -------------------------------------------------
+@echo =================================================
 echo.
 echo.
 echo.
@@ -52,5 +52,7 @@ echo.
 @echo -------------------------------------------------
 echo.
 @echo exit: Shuts Down Program
+echo.
+@echo =================================================
 echo.
 exit

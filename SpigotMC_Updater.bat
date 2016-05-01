@@ -14,16 +14,9 @@ cls
 if exist setup.bat (goto setup) else (goto boot)
 
 :setup
+@echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
 del /f setup.bat
-cls
-goto boot
-
-if exist convert.bat (goto convert) else (goto boot)
-
-:convert
-start /b /wait convert.bat
-del /f convert.bat
 cls
 goto boot
 
@@ -42,6 +35,7 @@ If /i "%_2%"=="N" goto startup
 If /i "%_2%"=="n" goto startup
 
 :autoupdate
+@echo I am a dummy file xD >> tasks\session.txt
 start "SpigotMC Updater | Auto Update" tasks\update.bat
 
 exit
@@ -52,13 +46,9 @@ If exist %content% (goto boot2) else (@echo bash.exe was not found. Download, or
 Goto error)
 
 :boot2
-@echo Smoke Weed Everyday :D. Continue: 
-Set /P _1=(Y, N) || Set _1=NothingChosen
-If "%_1%"=="NothingChosen" goto :start
-If /i "%_1%"=="Y" goto start
-If /i "%_1%"=="y" goto start
-If /i "%_1%"=="N" goto stop
-If /i "%_1%"=="n" goto stop
+echo MSGBOX "Make sure to always backup your files incase an update breaks" > %temp%\TEMPmessage.vbs
+call %temp%\TEMPmessage.vbs
+del %temp%\TEMPmessage.vbs /f /q
 
 :start
 if Exist menu.bat (goto ready) else (goto error2)

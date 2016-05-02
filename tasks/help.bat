@@ -1,5 +1,9 @@
 @echo off
 
+If exist tasks/help.bat (goto run) else (exit)
+
+:run
+
 echo.
 @echo ================ {Command List} =================
 echo.

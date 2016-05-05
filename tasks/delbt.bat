@@ -1,5 +1,9 @@
 @echo off
 
+If exist tasks/delbt.bat (goto pass) else (exit)
+
+:pass
+
 set startdir=%~dp0
 
 @echo Deleting old Buildtools.jar

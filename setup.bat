@@ -25,17 +25,17 @@ echo.
 echo.
 @echo Generating folder api...
 md api
-if exist api\ (@echo Successfully created folder api) else (@echo Failed to generate folder api. Please make sure you have read and write access.
+if exist api/ (@echo Successfully created folder api) else (@echo Failed to generate folder api. Please make sure you have read and write access.
 goto error) 
 echo.
 @echo Generating folder plugin...
 md plugin
-if exist plugin\ (@echo Successfully created folder plugin) else (@echo Failed to generate folder plugin. Please make sure you have read and write access.
+if exist plugin/ (@echo Successfully created folder plugin) else (@echo Failed to generate folder plugin. Please make sure you have read and write access.
 goto error) 
 echo.
 @echo Generating folder plugin-dump...
-md plugin/plugin-dump
-if exist plugin\plugin-dump\ (@echo Successfully created folder plugin\plugin-dump) else (@echo Failed to generate folder plugin\plugin-dump. Please make sure you have read and write access.
+md plugin\plugin-dump
+if exist plugin/plugin-dump/ (@echo Successfully created folder plugin\plugin-dump) else (@echo Failed to generate folder plugin\plugin-dump. Please make sure you have read and write access.
 goto error)
 echo.
 @echo Generating folder tasks/Buildtools_Files...

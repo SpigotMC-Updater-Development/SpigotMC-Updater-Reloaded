@@ -33,9 +33,9 @@ md plugin
 if exist plugin\ (@echo Successfully created folder plugin) else (@echo Failed to generate folder plugin. Please make sure you have read and write access.
 goto error) 
 echo.
-@echo Generating folder plugin_dump...
-md plugin/plugin_dump
-if exist plugin\plugin_dump\ (@echo Successfully created folder plugin\plugin_dump) else (@echo Failed to generate folder plugin\plugin_dump. Please make sure you have read and write access.
+@echo Generating folder plugin-dump...
+md plugin/plugin-dump
+if exist plugin\plugin-dump\ (@echo Successfully created folder plugin\plugin-dump) else (@echo Failed to generate folder plugin\plugin-dump. Please make sure you have read and write access.
 goto error)
 echo.
 @echo Generating folder tasks/Buildtools_Files...
@@ -53,7 +53,7 @@ echo.
 exit
 
 :error
-cls
+
 @echo Error 15 has occured. Generating error message then closing script.
 @echo An error had occured while adding the files. Make sure you have read and write access. >> tasks\error.txt
 start "SpigotMC Updater | Error 15" /wait tasks\error.txt

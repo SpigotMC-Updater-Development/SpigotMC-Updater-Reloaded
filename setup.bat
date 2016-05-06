@@ -6,14 +6,18 @@ echo.
 md config
 @echo Generating plugin.txt...
 powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/plugin.txt -OutFile config/plugin.txt
+if exist config/plugin.txt (@echo plugin.txt was added sucessfully) else (@echo plugin.txt failed to download. Make sure your have read and write access.
+goto error)
 echo.
 @echo Generating gitlocation.txt...
 powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/gitlocation.txt.txt -OutFile config/gitlocation.txt
-@echo Opening gitlocation.txt config option to configure the script...
-start "SpigotMC Updater | gitlocation.txt" /wait config\gitlocation.txt
+if exist config/gitlocation.txt (@echo gitlocation.txt was added sucessfully) else (@echo gitlocation.txt failed to download. Make sure your have read and write access.
+goto error)
 echo.
 @echo Generating bungeelocation.txt...
 powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/bungeelocation.txt -OutFile config/bungeelocation.txt
+if exist config/bungeelocation.txt (@echo bungeelocation.txt was added sucessfully) else (@echo bungeelocation.txt failed to download. Make sure your have read and write access.
+goto error)
 echo.
 echo.
 echo.
@@ -21,12 +25,18 @@ echo.
 echo.
 @echo Generating folder api...
 md api
+if exist api\ (@echo Successfully created folder api) else (@echo Failed to generate folder api. Please make sure you have read and write access.
+goto error) 
 echo.
-@echo Generating folder plugin-pending...
-md plugin-pending
+@echo Generating folder plugin...
+md plugin
+if exist plugin\ (@echo Successfully created folder plugin) else (@echo Failed to generate folder plugin. Please make sure you have read and write access.
+goto error) 
 echo.
-@echo Generating folder plugin-fixed...
-md plugin-fixed
+@echo Generating folder plugin_dump...
+md plugin/plugin_dump
+if exist plugin\plugin_dump\ (@echo Successfully created folder plugin\plugin_dump) else (@echo Failed to generate folder plugin\plugin_dump. Please make sure you have read and write access.
+goto error)
 echo.
 @echo Generating folder tasks/Buildtools_Files...
 md tasks/Buildtools_Files
@@ -40,4 +50,11 @@ rem #######################################
 echo.
 @echo Closing and deleting setup.bat...
 echo.
+exit
+
+:error
+cls
+@echo Error 15 has occured. Generating error message then closing script.
+@echo An error had occured while adding the files. Make sure you have read and write access. >> tasks\error.txt
+start "SpigotMC Updater | Error 15" /wait tasks\error.txt
 exit

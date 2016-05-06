@@ -39,7 +39,9 @@ if exist plugin/plugin-dump/ (@echo Successfully created folder plugin\plugin-du
 goto error)
 echo.
 @echo Generating folder tasks/Buildtools_Files...
-md tasks/Buildtools_Files
+md tasks\Buildtools_Files
+if exist tasks/Buildtools_Files/ (@echo Successfully created folder tasks/Buildtools_Files) else (@echo Failed to generate folder tasks/Buildtools_Files. Please make sure you have read and write access.
+goto error)
 @echo Finished Generating all files.
 
 rem #######################################

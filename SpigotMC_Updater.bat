@@ -16,6 +16,7 @@ if exist setup.bat (goto setup) else (goto boot)
 :setup
 @echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
+if exist tasks\error.txt (goto error3)
 del /f setup.bat
 cls
 goto boot
@@ -65,6 +66,10 @@ exit
 :error2
 @echo Directory or file is missing. Redownload the script.
 @pause
+exit
+
+:error3
+del /f tasks\error.txt
 exit
 
 :exit

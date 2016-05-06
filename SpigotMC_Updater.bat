@@ -60,16 +60,19 @@ goto exit
 
 :error
 @echo Current invalid location set: %content%
+del /f tasks\session.txt
 @pause
 exit
 
 :error2
 @echo Directory or file is missing. Redownload the script.
+del /f tasks\session.txt
 @pause
 exit
 
 :error3
 del /f tasks\error.txt
+del /f tasks\session.txt
 exit
 
 :exit

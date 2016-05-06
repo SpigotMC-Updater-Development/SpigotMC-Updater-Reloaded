@@ -10,7 +10,7 @@ if exist config/plugin.txt (@echo plugin.txt was added sucessfully) else (@echo 
 goto error)
 echo.
 @echo Generating gitlocation.txt...
-powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/gitlocation.txt.txt -OutFile config/gitlocation.txt
+powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/gitlocation.txt -OutFile config/gitlocation.txt
 if exist config/gitlocation.txt (@echo gitlocation.txt was added sucessfully) else (@echo gitlocation.txt failed to download. Make sure your have read and write access.
 goto error)
 echo.

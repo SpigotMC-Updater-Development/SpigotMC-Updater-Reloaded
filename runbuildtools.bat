@@ -1,7 +1,7 @@
 @echo off
 
 if exist tasks/session.txt (del /f tasks\session.txt
-goto boot) else (exit)
+goto run) else (exit)
 
 :run
 

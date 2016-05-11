@@ -42,6 +42,11 @@ echo.
 md tasks\Buildtools_Files
 if exist tasks/Buildtools_Files/ (@echo Successfully created folder tasks/Buildtools_Files) else (@echo Failed to generate folder tasks/Buildtools_Files. Please make sure you have read and write access.
 goto error)
+echo.
+@echo Generating tasks/changelog.bat
+powershell -command Invoke-WebRequest -Uri https://raw.githubusercontent.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded-Converter/master/tasks/changelog.bat -OutFile tasks/changelog.bat
+if exist tasks/changelog.bat (@echo changelog.bat was added sucessfully) else (@echo changelog.bat failed to download. Make sure your have read and write access.
+goto error)
 @echo Finished Generating all files.
 
 rem #######################################

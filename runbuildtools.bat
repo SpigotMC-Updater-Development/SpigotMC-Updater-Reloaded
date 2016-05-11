@@ -15,7 +15,7 @@ call:echo_gold "Select version ex. 1.9"
 Set /P "_1=>" || Set _1=NothingChosen
 If "%_1%"=="NothingChosen" goto :error
 If /i "%_1%"=="latest" goto latest
-If /i "%_1%"=="1.9.3" goto 1.9.3
+If /i "%_1%"=="1.9.4" goto 1.9.4
 If /i "%_1%"=="1.9.2" goto 1.9.2
 If /i "%_1%"=="1.9" goto 1.9
 If /i "%_1%"=="1.8.8" goto 1.8.8
@@ -33,8 +33,8 @@ goto beginning
 "%content%" --login -i -c "java -jar "tasks/BuildTools.jar"" -rev latest "
 goto exit
 
-:1.9.3
-"%content%" --login -i -c "java -jar "tasks/BuildTools.jar"" -rev 1.9.3 "
+:1.9.4
+"%content%" --login -i -c "java -jar "tasks/BuildTools.jar"" -rev 1.9.4 "
 goto exit
 
 :1.9.2

@@ -12,11 +12,16 @@ for /f "delims=" %%i in ('type config\gitlocation.txt') do set content=%%i
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
+title SpigotMC Updater v.%v%
+
+echo MSGBOX "Make sure to always backup your files incase an update breaks" > %temp%\TEMPmessage.vbs
+call %temp%\TEMPmessage.vbs
+del %temp%\TEMPmessage.vbs /f /q
+
 if exist %content% (goto start) else (goto error1)
 
 :start
 cls
-title SpigotMC Updater v.%v%
 @echo Welcome to SpigotMC Updater v.%v%
 start /b /wait tasks\help.bat
 :commanderror
@@ -28,7 +33,7 @@ If /i "%_1%"=="help" goto start
 If /i "%_1%"=="task clean" goto clean
 If /i "%_1%"=="task plugin" goto plugin
 If /i "%_1%"=="task bungee" goto bungee
-If /i "%_1%"=="task issues" goto issues
+If /i "%_1%"=="program changelog" goto changelog
 If /i "%_1%"=="program update" goto updatetool
 If /i "%_1%"=="exit" goto exit
 
@@ -247,6 +252,15 @@ copy bungee\modules\cmd_list.jar %bungee%modules /v /-y
 copy bungee\modules\cmd_alert.jar %bungee%modules /v /-y
 %content% --login -i -c "sleep 1s"
 copy bungee\modules\reconnect_yaml.jar %bungee%modules /v /-y
+
+goto start
+
+:changelog
+cls
+
+start /b /wait tasks\changelog.bat
+
+pause
 
 goto start
 

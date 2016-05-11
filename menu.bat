@@ -266,6 +266,13 @@ goto start
 
 :error1
 
+start "SpigotMC Updater Reloaded | gitlocation.txt" /wait config\gitlocation.txt
+
+set content=
+for /f "delims=" %%i in ('type config\gitlocation.txt') do set content=%%i
+
+if exist %content% (goto start) else (@echo Failed 2nd attempt. Launching your browser.)
+
 explorer "https://github.com/git-for-windows/git/releases/download/v2.7.2.windows.1/Git-2.7.2-64-bit.exe"
 
 :exit

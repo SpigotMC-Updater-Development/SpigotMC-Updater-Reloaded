@@ -21,7 +21,10 @@ for /f "delims=" %%i in ('type config\plugin.txt') do set plugin=%%i
 
 echo.
 if exist %plugin%.jar (@echo Found %plugin%.jar. Using Special Mapping Methods.
-%content% --login -i -c "java -jar tasks/Buildtools_Files/BuildData/bin/SpecialSource-2.jar map -m tasks/Buildtools_Files/CraftBukkit/deprecation-mappings.csrg -i plugin-pending/%plugin%.jar -o plugin-fixed/%plugin%-fixed.jar") else (@echo Could not find %plugin%.jar in folder %startdir%plugin-pending)
+%content% --login -i -c "java -jar tasks/Buildtools_Files/BuildData/bin/SpecialSource-2.jar map -m tasks/Buildtools_Files/CraftBukkit/deprecation-mappings.csrg -i plugin/%plugin%.jar -o plugin/%plugin%-fixed.jar"
+@echo Moving %plugin%.jar to plugin\plugin-dump
+%content% --login -i -c "sleep 5s"
+move %plugin%.jar plugin\plugin-dump) else (@echo Could not find %plugin%.jar in folder %startdir%plugin)
 echo.
 @echo Do you want to run this again: (Y, N)
 Set /P "_1=" || Set _1=NothingChosen

@@ -77,7 +77,13 @@ echo.
 )
 @echo I am a dummy file xD >> tasks\session.txt
 cls
-start /b /wait runbuildtools.bat
+start /b /wait config\version.txt
+set version=
+for /f "delims=" %%i in ('type config\version.txt') do set version=%%i
+
+:latest
+"%content%" --login -i -c "java -jar "tasks/BuildTools.jar"" --rev %v% "
+
 cls
 @echo Moving Buildtools Folder back to its original spot
 echo.

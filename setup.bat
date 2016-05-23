@@ -18,6 +18,7 @@ echo.
 powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/gitlocation.txt -OutFile config/gitlocation.txt
 if exist config/gitlocation.txt (@echo gitlocation.txt was added sucessfully) else (@echo gitlocation.txt failed to download. Make sure your have read and write access.
 goto error)
+start "SpigotMC Updater | gitlocation.txt" /wait config\gitlocation.txt
 echo.
 @echo Generating bungeelocation.txt...
 powershell -command Invoke-WebRequest -Uri http://thegearmc.com/update/bungeelocation.txt -OutFile config/bungeelocation.txt

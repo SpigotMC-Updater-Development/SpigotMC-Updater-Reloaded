@@ -43,6 +43,11 @@ md plugin\plugin-dump
 if exist plugin/plugin-dump/ (@echo Successfully created folder plugin\plugin-dump) else (@echo Failed to generate folder plugin\plugin-dump. Please make sure you have read and write access.
 goto error)
 echo.
+@echo Generating folder serverjars...
+md serverjars
+if exist serverjars/ (@echo Successfully created folder serverjars) else (@echo Failed to generate folder serverjars. Please make sure you have read and write access.
+goto error)
+echo.
 @echo Generating folder tasks/temp...
 md tasks\temp
 if exist tasks/temp/ (@echo Successfully created folder tasks/temp/) else (@echo Failed to generate folder tasks/temp/. Please make sure you have read and write access.

@@ -32,7 +32,8 @@ echo.
 @echo 5. Grab BungeeCord (Only needed if you are hosting a network.)
 @echo 6. Read Changelogs (For nerds)
 @echo 7. Update SpigotMC Updater
-@echo 8. Close this script safely
+@echo 8. Report a bug in this script
+@echo 9. Close this script safely
 :commanderror
 Set /P "_1=>" || Set _1=NothingChosen
 If "%_1%"=="NothingChosen" goto :commandnotfound
@@ -43,7 +44,8 @@ If /i "%_1%"=="4" goto plugin
 If /i "%_1%"=="5" goto bungee
 If /i "%_1%"=="6" goto changelog
 If /i "%_1%"=="7" goto updatetool
-If /i "%_1%"=="8" goto exit
+If /i "%_1%"=="8" goto bug
+If /i "%_1%"=="9" goto exit
 
 :commandnotfound
 @echo Command not found. Try help for help menu
@@ -80,12 +82,6 @@ start /b /wait %startdir%tasks\Buildtools_Files\run.bat
 cd %startdir%
 
 cls
-
-set datetime=
-for /f %%a in ('powershell -Command "Get-Date -format yyyy_MM_dd__HH_mm_ss"') do set datetime=%%a
-
-if exist BuildTools.log.txt (rename BuildTools.log.txt Buildtools.log.%datetime%.txt
-move BuildTools.log.*.txt %startdir%logs)
 
 @echo Moving Server jars into folder %startdir%serverjars\
 %content% --login -i -c "sleep 1s"
@@ -157,7 +153,7 @@ goto start
 :plugin
 @echo I am a dummy file xD >> tasks\session.txt
 cls
-start /b /wait task\plugin_repair_tool.bat
+start /b /wait tasks\plugin_repair_tool.bat
 @echo Finished using Plugin Repair Tool by SpigotMC Updater. Thanks to md_5 for making the original repair script as he does not endorse or maintains this script.
 %content% --login -i -c "sleep 3s"
 goto start
@@ -206,7 +202,7 @@ If exist bungee\modules\reconnect_yaml.jar (del /f bungee\modules\reconnect_yaml
 @echo Updated BungeeCord and all its Modules
 
 :rerun
-start "bungeelocation Config Option" /wait config\bungeelocation.txt
+start "SpigotMC Updater | bungeelocation" /wait config\bungeelocation.txt
 
 set bungee=
 for /f "delims=" %%i in ('type config\bungeelocation.txt') do set bungee=%%i
@@ -264,9 +260,21 @@ pause
 
 goto start
 
+:bug
+cls
+
+@echo Use this only if you catch a bug. Snapshots will be more helpful.
+
+%content% --login -i -c "sleep 5s"
+
+@echo Launching your Browser
+explorer "https://github.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded/issues"
+
+goto start
+
 :error1
 
-start "SpigotMC Updater Reloaded | gitlocation.txt" /wait config\gitlocation.txt
+start "SpigotMC Updater | gitlocation.txt" /wait config\gitlocation.txt
 
 set content=
 for /f "delims=" %%i in ('type config\gitlocation.txt') do set content=%%i
@@ -277,6 +285,16 @@ explorer "https://github.com/git-for-windows/git/releases/download/v2.7.2.window
 
 :exit
 cls
-@echo Thanks for using SpigotMC Updater v.%v% by Legoman99573. Updated by ShadowCable.
+
+@echo Thanks for using SpigotMC Updater v.%v% by Legoman99573.
+
+@echo -----------{Contributors}-----------
+
+@echo Legoman99573 - Main Author/Creator
+
+@echo ShadowCable - Volunteer
+
 @pause
+
 exit
+

@@ -25,7 +25,7 @@ goto boot
 set content=
 for /f "delims=" %%i in ('type config\gitlocation.txt') do set content=%%i
 
-@echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573. Updated and maintained by ShadowCable.
+@echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573.
 echo.
 @echo Do you want to Check for updates 
 Set /P _2=(Y, N) || Set _2=NothingChosen

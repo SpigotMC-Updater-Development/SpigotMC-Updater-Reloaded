@@ -14,7 +14,7 @@ for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 title SpigotMC Updater v.%v%
 
-echo MSGBOX "Make sure to always backup your files incase an update breaks" > %temp%\TEMPmessage.vbs
+echo MSGBOX "Make sure to always backup your files incase an update breaks" >> %temp%\TEMPmessage.vbs
 call %temp%\TEMPmessage.vbs
 del %temp%\TEMPmessage.vbs /f /q
 
@@ -23,19 +23,27 @@ if exist %content% (goto start) else (goto error1)
 :start
 cls
 @echo Welcome to SpigotMC Updater v.%v%
-start /b /wait tasks\help.bat
+echo.
+@echo What task do you want to run? Must use numbers and press enter.
+@echo 1. Update Buildtools
+@echo 2. Run Buildtools
+@echo 3. Clean Buildtools Folder
+@echo 4. Repair a plugin with Spigot's Special Recipe
+@echo 5. Grab BungeeCord (Only needed if you are hosting a network.)
+@echo 6. Read Changelogs (For nerds)
+@echo 7. Update SpigotMC Updater
+@echo 8. Close this script safely
 :commanderror
 Set /P "_1=>" || Set _1=NothingChosen
 If "%_1%"=="NothingChosen" goto :commandnotfound
-If /i "%_1%"=="task update" goto update
-If /i "%_1%"=="task run" goto run
-If /i "%_1%"=="help" goto start
-If /i "%_1%"=="task clean" goto clean
-If /i "%_1%"=="task plugin" goto plugin
-If /i "%_1%"=="task bungee" goto bungee
-If /i "%_1%"=="program changelog" goto changelog
-If /i "%_1%"=="program update" goto updatetool
-If /i "%_1%"=="exit" goto exit
+If /i "%_1%"=="1" goto update
+If /i "%_1%"=="2" goto run
+If /i "%_1%"=="3" goto clean
+If /i "%_1%"=="4" goto plugin
+If /i "%_1%"=="5" goto bungee
+If /i "%_1%"=="6" goto changelog
+If /i "%_1%"=="7" goto updatetool
+If /i "%_1%"=="8" goto exit
 
 :commandnotfound
 @echo Command not found. Try help for help menu
@@ -45,33 +53,19 @@ goto commanderror
 cls
 start /b /wait %startdir%tasks\delbt.bat
 %content% --login -i -c "sleep 3s"
-%content% --login -i -c "curl -o tasks/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar"
-if exist %startdir%tasks\BuildTools.jar (@echo Updated BuildTools) else (@echo An error has occured. Make sure folder has read, write, and execute access.)
+%content% --login -i -c "curl -o tasks/Buildtools_Files/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar"
+if exist %startdir%tasks\Buildtools_Files\BuildTools.jar (@echo Updated BuildTools) else (@echo An error has occured. Make sure folder has read, write, and execute access.)
 goto start
 
 :run
 cls
 @echo Warning: exiting while this is running may cause something to break, and not move buildtools files at the right time leaving a mess until you run this command again.
-@pause
-@echo getting Buildtools Ready
-if exist %startdir%tasks\Buildtools_Files\apache-maven-3.2.5 (move %startdir%tasks\Buildtools_Files\apache-maven-3.2.5 %startdir%) else (echo.
-echo Folder "apache-maven-3.2.5" doesnt exist may be ignored)
-if exist %startdir%tasks\Buildtools_Files\BuildData (move %startdir%tasks\Buildtools_Files\BuildData %startdir%) else (echo.
-echo Folder "BuildData" doesnt exist may be ignored)
-if exist %startdir%tasks\Buildtools_Files\Bukkit (move %startdir%tasks\Buildtools_Files\Bukkit %startdir%) else (echo.
-echo Folder "Bukkit" doesnt exist may be ignored)
-if exist %startdir%tasks\Buildtools_Files\CraftBukkit (move %startdir%tasks\Buildtools_Files\CraftBukkit %startdir%) else (echo.
-echo "Folder" CraftBukkit doesnt exist may be ignored)
-if exist %startdir%tasks\Buildtools_Files\Spigot (move %startdir%tasks\Buildtools_Files\Spigot %startdir%) else (echo.
-echo Folder "Spigot" doesnt exist may be ignored)
-if exist %startdir%tasks\Buildtools_Files\work (move %startdir%tasks\Buildtools_Files\work %startdir%) else (echo.
-echo Folder "work" doesnt exist may be ignored)
 
-if exist tasks\BuildTools.jar (@echo Running BuildTools.jar) else (@echo Buildtools.jar is missing
+if exist tasks\Buildtools_Files\BuildTools.jar (@echo Running BuildTools.jar) else (@echo Buildtools.jar is missing
 echo.
 @echo Grabbing BuildTools.jar from hub.spigotmc.org
 echo.
-%content% --login -i -c "curl -o tasks/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar"
+%content% --login -i -c "curl -o tasks/Buildtools_Files/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar"
 echo.
 @echo Grabbed, and will attempt to run BuildTools.jar
 )
@@ -81,24 +75,11 @@ start /b /wait config\version.txt
 set version=
 for /f "delims=" %%i in ('type config\version.txt') do set version=%%i
 
-:latest
-"%content%" --login -i -c "java -jar "tasks/BuildTools.jar"" --rev %v% "
+start /b /wait %startdir%tasks\Buildtools_Files\run.bat
+
+cd %startdir%
 
 cls
-@echo Moving Buildtools Folder back to its original spot
-echo.
-if exist %startdir%\apache-maven-3.2.5 ( move apache-maven-3.2.5 tasks\Buildtools_Files )
-echo.
-if exist %startdir%\BuildData ( move BuildData tasks\Buildtools_Files )
-echo.
-if exist %startdir%\Bukkit ( move Bukkit tasks\Buildtools_Files )
-echo.
-if exist %startdir%\CraftBukkit ( move CraftBukkit tasks\Buildtools_Files )
-echo.
-if exist %startdir%\Spigot ( move Spigot tasks\Buildtools_Files )
-echo.
-if exist %startdir%\Work ( move work tasks\Buildtools_Files )
-echo.
 
 set datetime=
 for /f %%a in ('powershell -Command "Get-Date -format yyyy_MM_dd__HH_mm_ss"') do set datetime=%%a
@@ -112,20 +93,20 @@ echo.
 @echo Moving Spigot
 %content% --login -i -c "sleep 3s"
 echo.
-if exist spigot-*.jar (move spigot-*.jar %startdir%serverjars
+if exist %startdir%tasks/Buildtools_Files/spigot-*.jar (move %startdir%tasks\Buildtools_Files\spigot-*.jar %startdir%serverjars
 %content% --login -i -c "sleep 3s"
 echo.
-if exist spigot-*.jar (@echo Failed to move Spigot) else (@echo Moved Spigot service Successfully)
+if exist %startdir%tasks/Buildtools_Files/spigot-*.jar (@echo Failed to move Spigot) else (@echo Moved Spigot service Successfully)
 ) else (@echo File doesnt exist)
 echo.
 %content% --login -i -c "sleep 2s"
 @echo Moving Craftbukkit
 %content% --login -i -c "sleep 1s"
 echo.
-if exist craftbukkit-*.jar (move craftbukkit-*.jar %startdir%serverjars
+if exist %startdir%tasks/Buildtools_Files/craftbukkit-*.jar (move %startdir%tasks\Buildtools_Files\craftbukkit-*.jar %startdir%serverjars
 echo.
 %content% --login -i -c "sleep 2s"
-if exist craftbukkit-*.jar (@echo Failed to move Craftbukkit) else (@echo Moved Craftbukkit service Successfully)
+if exist %startdir%tasks/Buildtools_Files/craftbukkit-*.jar (@echo Failed to move Craftbukkit) else (@echo Moved Craftbukkit service Successfully)
 ) else (@echo File doesnt exist)
 @echo.
 @echo Copying Spigot API's to api folder
@@ -147,13 +128,26 @@ If /i "%_clear%"=="y" goto cleanrun
 If /i "%_clear%"=="N" goto start
 If /i "%_clear%"=="n" goto start
 :cleanrun
-@echo Deleting every folder in %startdir%Buildtools_Files\
-rd /q tasks\Buildtools_Files
+@echo Deleting every folder in %startdir%Buildtools_Files\ that was generated by BuildTools.jar
+cd .
+rmdir /q /s %startdir%tasks\Buildtools_Files\apache-maven-3.2.5 %startdir%tasks\Buildtools_Files\BuildData %startdir%tasks\Buildtools_Files\Bukkit %startdir%tasks\Buildtools_Files\CraftBukkit %startdir%tasks\Buildtools_Files\Spigot %startdir%tasks\Buildtools_Files\work
+if exist %startdir%tasks\Buildtools_Files\apache-maven-3.2.5 (@echo Cleaning of %startdir%Buildtools_Files\apache-maven-3.2.5 Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\apache-maven-3.2.5 was Successful)
 %content% --login -i -c "sleep 1s"
-if exist %startdir%tasks\Buildtools_Files (@echo Cleaning of %startdir%Buildtools_Files\ Failed. Make sure the folder has read, write, and execute enabled.
-goto start) else (@echo Cleaning of %startdir%Buildtools_Files\ was Successfuly)
+if exist %startdir%tasks\Buildtools_Files\BuildData (@echo Cleaning of %startdir%Buildtools_Files\BuildData Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\BuildData was Successful)
 %content% --login -i -c "sleep 1s"
-md tasks\Buildtools_Files
+if exist %startdir%tasks\Buildtools_Files\Bukkit (@echo Cleaning of %startdir%Buildtools_Files\Bukkit Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\Bukkit was Successful)
+%content% --login -i -c "sleep 1s"
+if exist %startdir%tasks\Buildtools_Files\CraftBukkit (@echo Cleaning of %startdir%Buildtools_Files\CraftBukkit Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\CraftBukkit was Successful)
+%content% --login -i -c "sleep 1s"
+if exist %startdir%tasks\Buildtools_Files\CraftBukkit (@echo Cleaning of %startdir%Buildtools_Files\CraftBukkit Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\CraftBukkit was Successful)
+%content% --login -i -c "sleep 1s"
+if exist %startdir%tasks\Buildtools_Files\work (@echo Cleaning of %startdir%Buildtools_Files\work Failed. Make sure the folder has read, write, and execute enabled.
+goto start) else (@echo Cleaning of %startdir%Buildtools_Files\work was Successful)
 %content% --login -i -c "sleep 1s"
 echo.
 @echo All Buildtools Files were removed.
@@ -163,9 +157,9 @@ goto start
 :plugin
 @echo I am a dummy file xD >> tasks\session.txt
 cls
-start /b /wait plugin_repair_tool.bat
+start /b /wait task\plugin_repair_tool.bat
 @echo Finished using Plugin Repair Tool by SpigotMC Updater. Thanks to md_5 for making the original repair script as he does not endorse or maintains this script.
-%content% --login -i -c "sleep 1s"
+%content% --login -i -c "sleep 3s"
 goto start
 
 :bungee

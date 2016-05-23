@@ -43,9 +43,9 @@ md plugin\plugin-dump
 if exist plugin/plugin-dump/ (@echo Successfully created folder plugin\plugin-dump) else (@echo Failed to generate folder plugin\plugin-dump. Please make sure you have read and write access.
 goto error)
 echo.
-@echo Generating folder tasks/Buildtools_Files...
-md tasks\Buildtools_Files
-if exist tasks/Buildtools_Files/ (@echo Successfully created folder tasks/Buildtools_Files) else (@echo Failed to generate folder tasks/Buildtools_Files. Please make sure you have read and write access.
+@echo Generating folder tasks/temp...
+md tasks\temp
+if exist tasks/temp/ (@echo Successfully created folder tasks/temp/) else (@echo Failed to generate folder tasks/temp/. Please make sure you have read and write access.
 goto error)
 echo.
 @echo Generating tasks/changelog.bat

@@ -18,7 +18,6 @@ for /f "delims=" %%i in ('type config\version.txt') do set version=%%i
 
 set content=..\..\Git\Bin\Bash.exe
 
-
 cd %startdir%
 
 if exist BuildTools.jar (

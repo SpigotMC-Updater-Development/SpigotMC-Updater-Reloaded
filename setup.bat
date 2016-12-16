@@ -2,17 +2,58 @@
 
 set startdir=%~dp0
 
+set v=
+for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
+
+title "SpigotMC Updater v.%v% | Setup"
+
+@echo Downloading Custom Git for this script...
+@echo [Info] Downloading Custom Git for this script... >> log.txt
 powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git.zip -OutFile Git.zip
+powershell -command Start-Sleep -s 10
 if exist Git.zip (
 	powershell.exe -command write-host "Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip" -f green
+	@echo [Info] Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip >> log.txt
+	powershell -command Start-Sleep -s 10
+	cls
+	@echo Extracting %startdir%Git.zip...
+	@echo [Info] Extracting %startdir%Git.zip... >> log.txt
 	Expand-ZIPFile –File “Git.zip”
-	del /f Git.zip
 ) else (
 	powershell.exe -command write-host "Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access." -f red
 	@echo [ERROR] Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access. >> log.txt
 	goto error
 )
 
+powershell -command Start-Sleep -s 5
+cls
+@echo Making sure %startdir%Git\bin\bash.exe is found...
+@echo [Info] Making sure %startdir%Git\bin\bash.exe is found... >> log.txt
+if exist Git\bin\bash.exe (
+	powershell.exe -command write-host "%startdir%Git\bin\bash.exe has been found." -f green
+	@echo [Info] %startdir%Git\bin\bash.exe has been found. >> log.txt
+) else (
+	powershell.exe -command write-host "%startdir%Git\bin\bash.exe could not be found." -f red
+	@echo [ERROR] %startdir%Git\bin\bash.exe could not be found. >> log.txt
+	goto error
+)
+
+powershell -command Start-Sleep -s 5
+cls
+@echo Deleting %startdir%Git.zip...
+@echo [Info] Deleting %startdir%Git.zip... >> log.txt
+del /f Git.zip
+Git\bin\bash.exe --login -i -c "sleep 5s"
+if exist Git.zip (
+	powershell.exe -command write-host "%startdir%Git.zip was removed Succesfully." -f green
+	@echo [Info] %startdir%Git.zip was removed Succesfully. >> log.txt
+) else (
+	powershell.exe -command write-host "Failed to remove %startdir%Git\bin\bash.exe. Make sure %startdir% has Read and Write Access" -f red
+	@echo [ERROR] Failed to remove %startdir%Git\bin\bash.exe. Make sure %startdir% has Read and Write Access. >> log.txt
+	goto error
+)
+
+powershell -command Start-Sleep -s 5
 cls
 @echo Creating the config folder...
 @echo [Info] Creating the config folder... >> log.txt
@@ -141,5 +182,5 @@ cls
 powershell.exe -command write-host "An error has occured in the setup. Terminating the program." -f green
 @echo [ERROR] An error has occured in the setup. Terminating the program. >> log.txt
 @echo error >> tasks\error.txt
-Git\bin\bash.exe --login -i -c "sleep 5s"
+powershell -command Start-Sleep -s 5
 exit

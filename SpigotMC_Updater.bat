@@ -29,12 +29,13 @@ if exist setup.bat (
 :setup
 @echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
+powershell -command Start-Sleep -s 5
 if exist tasks/error.txt (
    del /f tasks\error.txt
    cls
    powershell.exe -command write-host "Setup has failed. Try running the setup again." -f red
    @echo [ERROR] Setup has failed. Try running the setup again. >> log.txt
-   %content% --login -i -c "sleep 5s"
+   powershell -command Start-Sleep -s 5
    exit
 ) else (
     cls
@@ -42,7 +43,7 @@ if exist tasks/error.txt (
     cls
     powershell.exe -command write-host "Setup Completed." -f green
     @echo [Info] Setup Completed. >> log.txt
-    %content% --login -i -c "sleep 5s"
+    powershell -command Start-Sleep -s 5
 )
 
 cls

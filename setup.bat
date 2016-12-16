@@ -49,8 +49,8 @@ cls
 @echo Deleting %startdir%Git.zip...
 @echo [Info] Deleting %startdir%Git.zip... >> log.txt
 del /f Git.zip
-Git\bin\bash.exe --login -i -c "sleep 5s"
-if exist Git.zip (
+powershell -command Start-Sleep -s 5
+if not exist Git.zip (
 	powershell.exe -command write-host "%startdir%Git.zip was removed Succesfully." -f green
 	@echo [Info] %startdir%Git.zip was removed Succesfully. >> log.txt
 ) else (
@@ -135,6 +135,7 @@ cls
 @echo Generating bungeelocation.txt...
 @echo [Info] Generating bungeelocation.txt... >> log.txt
 powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/bungeelocation.txt -OutFile config/bungeelocation.txt
+Git\bin\bash.exe --login -i -c "sleep 5s"
 if exist config/bungeelocation.txt (
 	powershell.exe -command write-host "Sucessfully generated %startdir%config\bungeelocation.txt" -f green
 	@echo [Info] Sucessfully generated %startdir%config\bungeelocation.txt >> log.txt

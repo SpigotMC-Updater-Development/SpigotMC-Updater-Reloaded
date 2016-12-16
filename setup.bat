@@ -7,6 +7,12 @@ for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 title "SpigotMC Updater v.%v% | Setup"
 
+if exist Git\bin\bash.exe (
+	powershell.exe -command write-host "%startdir%Git\bin\bash.exe already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%Git\bin\bash.exe already exists. Skipping check. >> log.txt
+	goto skip
+)
+
 @echo Downloading Custom Git for this script...
 @echo [Info] Downloading Custom Git for this script... >> log.txt
 powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git.zip -OutFile Git.zip
@@ -54,6 +60,14 @@ if exist Git.zip (
 )
 
 powershell -command Start-Sleep -s 5
+:skip
+
+if exist config/ (
+	powershell.exe -command write-host "%startdir%config\ already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%config\ already exists. Skipping check. >> log.txt
+	goto skip2
+)
+
 cls
 @echo Creating the config folder...
 @echo [Info] Creating the config folder... >> log.txt
@@ -67,6 +81,13 @@ if exist config/ (
 	goto error
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
+
+:skip2
+if exist config/plugin.txt (
+	powershell.exe -command write-host "%startdir%config\plugin.txt already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%config\plugin.txt already exists. Skipping check. >> log.txt
+	goto skip3
+)
 
 cls
 @echo Generating plugin.txt...
@@ -82,6 +103,13 @@ if exist config/plugin.txt (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
+:skip3
+if exist config/version.txt (
+	powershell.exe -command write-host "%startdir%config\version.txt already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%config\version.txt already exists. Skipping check. >> log.txt
+	goto skip4
+)
+
 cls
 @echo Generating version.txt...
 @echo [Info] Generating version.txt... >> log.txt
@@ -94,7 +122,14 @@ if exist config/version.txt (
 	@echo [ERROR] Failed to generate %startdir%config\version.txt. Make sure your have read and write access. >> log.txt
 	goto error
 )
+
 Git\bin\bash.exe --login -i -c "sleep 5s"
+:skip4
+if exist config/bungeelocation.txt (
+	powershell.exe -command write-host "%startdir%config\bungeelocation.txt already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%config\bungeelocation.txt already exists. Skipping check. >> log.txt
+	goto skip5
+)
 
 cls
 @echo Generating bungeelocation.txt...
@@ -110,11 +145,19 @@ if exist config/bungeelocation.txt (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
+:skip5
+
 cls
 @echo Generating necessary Folders...
 @echo [Info] Generating necessary Folders... >> log.txt
 cls
 Git\bin\bash.exe --login -i -c "sleep 5s"
+
+if exist api/ (
+	powershell.exe -command write-host "%startdir%api\ already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%api\ already exists. Skipping check. >> log.txt
+	goto skip6
+)
 
 @echo Generating folder api...
 @echo [Info] Generating folder api... >> log.txt
@@ -128,6 +171,13 @@ if exist api/ (
 	goto error
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
+
+:skip6
+if exist plugin/ (
+	powershell.exe -command write-host "%startdir%plugin\ already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%plugin\ already exists. Skipping check. >> log.txt
+	goto skip7
+)
 
 cls
 @echo Generating folder plugin...
@@ -143,6 +193,13 @@ if exist plugin/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
+:skip7
+if exist plugin/plugin-dump (
+	powershell.exe -command write-host "%startdir%plugin\plugin-dump already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%plugin\plugin-dump already exists. Skipping check. >> log.txt
+	goto skip8
+)
+
 cls
 @echo Generating folder plugin-dump...
 @echo [Info] Generating folder plugin-dump... >> log.txt
@@ -157,6 +214,13 @@ if exist plugin/plugin-dump/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
+:skip8
+if exist serverjars/ (
+	powershell.exe -command write-host "%startdir%serverjars\ already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%serverjars\ already exists. Skipping check. >> log.txt
+	goto skip9
+)
+
 cls
 @echo Generating folder serverjars...
 @echo [Info] Generating folder serverjars... >> log.txt
@@ -170,6 +234,8 @@ if exist serverjars/ (
 	goto error
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
+
+:skip9
 
 cls
 powershell.exe -command write-host "Finished Setting up. Now will delete setup.bat and you should never see the not found error again." -f green

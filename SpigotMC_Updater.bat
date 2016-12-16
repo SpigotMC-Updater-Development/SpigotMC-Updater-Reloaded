@@ -169,7 +169,7 @@ if exist config/gitlocation.txt (
 
 @echo U wot m8 >> tasks\session.txt
 
-start /Max /i menu.bat
+start /b /wait menu.bat
 goto exit
 
 :exit

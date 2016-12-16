@@ -2,14 +2,16 @@
 
 if exist tasks\session.txt (
     del /f tasks\session.txt
+    powershell -command Start-Sleep -s 2
 )
 
 if exist log.old.txt (
     del /f log.old.txt
+    powershell -command Start-Sleep -s 2
 )
-
 if exist log.txt (
     rename log.txt log.old.txt
+    powershell -command Start-Sleep -s 2
 )
 
 set startdir=%~dp0
@@ -19,10 +21,17 @@ set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 title "SpigotMC Updater v.%v% | Boot Session"
+@echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
+@echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt
+powershell -command Start-Sleep -s 10
 cls
 if exist setup.bat (
+    powershell.exe -command write-host "You are missing some files. Do not panic. You will recieve this Warning until Setup is complete." -f yellow
+    @echo [WARNING] You are missing some files. Do not panic. You will recieve this Warning until Setup is complete >> log.txt
+    powershell -command Start-Sleep -s 5
     goto setup
 ) else (
+    @echo [WARNING] %startdir%setup.bat is missing. It is maybe due to you finishing the setup. This is not an error message, this is a check that happens when you start up. >> log.txt
     goto boot
 )
 
@@ -56,11 +65,11 @@ set content=Git\bin\bash.exe
 echo.
 @echo Do you want to Check for updates 
 Set /P _2=(Y, N) || Set _2=NothingChosen
-If "%_2%"=="NothingChosen" goto :startup
+If "%_2%"=="NothingChosen" goto :skip
 If /i "%_2%"=="Y" goto autoupdate
 If /i "%_2%"=="y" goto autoupdate
-If /i "%_2%"=="N" goto startup
-If /i "%_2%"=="n" goto startup
+If /i "%_2%"=="N" goto skip
+If /i "%_2%"=="n" goto skip
 
 :autoupdate
 @echo I am a dummy file xD >> tasks\session.txt
@@ -70,6 +79,11 @@ set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 title "SpigotMC Updater v.%v% | Boot Session"
+
+goto startup
+
+:skip
+@echo [WARNING] Updater was skipped by user. Using an outdated version will not revieve support for older versions. >> log.txt
 
 :startup
 

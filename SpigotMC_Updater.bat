@@ -29,7 +29,8 @@ if exist setup.bat (
 :setup
 @echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
-if exist error.txt (
+if exist tasks/error.txt (
+   del /f tasks\error.txt
    cls
    powershell.exe -command write-host "Setup has failed. Try running the setup again." -f red
    @echo [ERROR] Setup has failed. Try running the setup again. >> log.txt

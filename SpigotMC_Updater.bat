@@ -2,16 +2,11 @@
 
 if exist tasks\session.txt (
     del /f tasks\session.txt
-    powershell -command Start-Sleep -s 2
 )
 
-if exist log.old.txt (
-    del /f log.old.txt
-    powershell -command Start-Sleep -s 2
-)
+powershell -command Start-Sleep -m 2000
 if exist log.txt (
-    rename log.txt log.old.txt
-    powershell -command Start-Sleep -s 2
+    del /f log.txt
 )
 
 set startdir=%~dp0

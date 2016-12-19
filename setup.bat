@@ -5,13 +5,15 @@ set startdir=%~dp0
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
-title "SpigotMC Updater v.%v% | Setup"
+title Setting up SpigotMC Updater v.%v%...
 
 if exist Git\bin\bash.exe (
 	powershell.exe -command write-host "%startdir%Git\bin\bash.exe already exists. Skipping check." -f yellow
 	@echo [WARNING] %startdir%Git\bin\bash.exe already exists. Skipping check. >> log.txt
 	goto skip
 )
+
+cls
 
 if exist Git.zip (
 	powershell.exe -command write-host "%startdir%Git.zip already exists. Skipping check." -f yellow
@@ -33,6 +35,7 @@ if exist Git.zip (
 )
 
 :gitzipfile
+cls
 @echo Extracting %startdir%Git.zip...
 @echo [Info] Extracting %startdir%Git.zip... >> log.txt
 powershell -command Expand-Archive Git.zip

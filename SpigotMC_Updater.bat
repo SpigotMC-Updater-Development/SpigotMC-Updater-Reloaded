@@ -22,7 +22,7 @@ set startdir=%~dp0
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
-title Booting SpigotMC Updater v.%v%...
+title Loading SpigotMC Updater v.%v%...
 
 @echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
 @echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt
@@ -41,11 +41,9 @@ if exist setup.bat (
 :setup
 @echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
-
-title Booting SpigotMC Updater v.%v%...
-
 powershell -command Start-Sleep -s 5
 if exist tasks/error.txt (
+   title Closing SpigotMC Updater v.%v%...
    del /f tasks\error.txt
    cls
    powershell.exe -command write-host "Setup has failed. Try running the setup again." -f red
@@ -53,7 +51,8 @@ if exist tasks/error.txt (
    powershell -command Start-Sleep -s 5
    exit
 ) else (
-    cls
+    title Loading SpigotMC Updater v.%v%...
+	cls
     del /f setup.bat
     cls
     powershell.exe -command write-host "Setup Completed." -f green
@@ -79,12 +78,12 @@ If /i "%_2%"=="n" goto skip
 
 :autoupdate
 @echo I am a dummy file xD >> tasks\session.txt
-start "SpigotMC Updater | Auto Update" update.bat
+start /b /wait tasks\update.bat
 
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
-title "SpigotMC Updater v.%v% | Boot Session"
+title Booting SpigotMC Updater v.%v%...
 
 goto startup
 

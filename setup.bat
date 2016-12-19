@@ -24,7 +24,7 @@ if exist Git.zip (
 	cls
 	@echo Extracting %startdir%Git.zip...
 	@echo [Info] Extracting %startdir%Git.zip... >> log.txt
-	Expand-ZIPFile –File “Git.zip”
+	powershell -command Expand-ZIPFile –File “Git.zip”
 ) else (
 	powershell.exe -command write-host "Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access." -f red
 	@echo [ERROR] Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access. >> log.txt

@@ -1,5 +1,12 @@
 @echo off
 
+title Loading SpigotMC Updater...
+
+if not exist tasks/version.txt (
+	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
+)
+
+powershell -command Start-Sleep -m 2000
 if exist tasks\session.txt (
     del /f tasks\session.txt
 )
@@ -15,7 +22,8 @@ set startdir=%~dp0
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
-title "SpigotMC Updater v.%v% | Boot Session"
+title Booting SpigotMC Updater v.%v%...
+
 @echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
 @echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt
 powershell -command Start-Sleep -s 10
@@ -33,6 +41,9 @@ if exist setup.bat (
 :setup
 @echo I am a dummy file xD >> tasks\session.txt
 start /b /wait setup.bat
+
+title Booting SpigotMC Updater v.%v%...
+
 powershell -command Start-Sleep -s 5
 if exist tasks/error.txt (
    del /f tasks\error.txt

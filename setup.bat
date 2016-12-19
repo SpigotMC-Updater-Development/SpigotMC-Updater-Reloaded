@@ -13,6 +13,12 @@ if exist Git\bin\bash.exe (
 	goto skip
 )
 
+if exist Git.zip (
+	powershell.exe -command write-host "%startdir%Git.zip already exists. Skipping check." -f yellow
+	@echo [WARNING] %startdir%Git.zip already exists. Skipping check. >> log.txt
+	goto gitzipfile
+)
+
 @echo Downloading Custom Git for this script...
 @echo [Info] Downloading Custom Git for this script... >> log.txt
 powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git.zip -OutFile Git.zip
@@ -20,16 +26,17 @@ powershell -command Start-Sleep -s 10
 if exist Git.zip (
 	powershell.exe -command write-host "Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip" -f green
 	@echo [Info] Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip >> log.txt
-	powershell -command Start-Sleep -s 10
-	cls
-	@echo Extracting %startdir%Git.zip...
-	@echo [Info] Extracting %startdir%Git.zip... >> log.txt
-	powershell -command Expand-Archive Git.zip
 ) else (
 	powershell.exe -command write-host "Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access." -f red
 	@echo [ERROR] Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access. >> log.txt
 	goto error
 )
+
+:gitzipfile
+@echo Extracting %startdir%Git.zip...
+@echo [Info] Extracting %startdir%Git.zip... >> log.txt
+powershell -command Expand-Archive Git.zip
+
 
 powershell -command Start-Sleep -s 5
 cls

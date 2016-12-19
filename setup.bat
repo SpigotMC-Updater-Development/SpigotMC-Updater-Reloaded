@@ -38,8 +38,7 @@ if exist Git.zip (
 cls
 @echo Extracting %startdir%Git.zip...
 @echo [Info] Extracting %startdir%Git.zip... >> log.txt
-powershell -command Expand-Archive Git.zip
-
+powershell -command Expand-Archive -Force Git.zip
 
 powershell -command Start-Sleep -s 5
 cls

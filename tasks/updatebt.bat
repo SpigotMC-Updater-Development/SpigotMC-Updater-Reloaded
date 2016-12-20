@@ -51,7 +51,7 @@ if exist Buildtools_Files/BuildTools.jar (
     @echo [Info] Updated BuildTools.jar from hub.spigotmc.org. >> ..\log.txt
 ) else (
     powershell.exe -command write-host "Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down." -f red
-    @echo [ERRPR] Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down. >> ..\log.txt
+    @echo [ERROR] Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down. >> ..\log.txt
 )
 
 :exit

@@ -33,6 +33,7 @@ cls
 if exist BuildTools_Files/BuildTools.jar (
     powershell.exe -command write-host "Failed to delete old version. Make sure you have Read, Write, and Execute allowed in %startdir%Buildtools_Files\." -f red
     @echo [ERROR] Failed to delete old version. Make sure you have Read, Write, and Execute allowed in %startdir%Buildtools_Files\. >> ..\log.txt
+    goto exit
 ) else (
     powershell.exe -command write-host "Deleted BuildTools.jar from %startdir%Buildtools_Files\ Sucessfully." -f green
     @echo [Info] Deleted BuildTools.jar from %startdir%Buildtools_Files\ Sucessfully. >> ..\log.txt
@@ -43,6 +44,15 @@ cls
 
 @echo Updating Buildtools.jar :D
 @echo [Info] Updating Buildtools.jar :D >> ..\log.txt
+
+%content% --login -i -c "curl -o Buildtools_Files/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar"
+if exist Buildtools_Files/BuildTools.jar (
+    powershell.exe -command write-host "Updated BuildTools.jar from hub.spigotmc.org." -f green
+    @echo [Info] Updated BuildTools.jar from hub.spigotmc.org. >> ..\log.txt
+) else (
+    powershell.exe -command write-host "Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down." -f red
+    @echo [ERRPR] Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down. >> ..\log.txt
+)
 
 :exit
 cd ..\

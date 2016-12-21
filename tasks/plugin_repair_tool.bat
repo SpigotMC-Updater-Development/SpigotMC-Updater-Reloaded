@@ -1,17 +1,19 @@
 @echo off
 
-if exist tasks/session.txt (
-	del /f tasks\session.txt
-	goto boot
+if exist tasks/plugin_repair_tool.bat (
+	@echo [Info] Loading PluginRepairTool Module...
 ) else (
 	exit
 )
 
-:boot
-
 set startdir=%~dp0
 
 cd %startdir%
+
+set v=
+for /f "delims=" %%i in ('type version.txt') do set v=%%i
+
+title Running SpigotMC Updater v.%v% PluginRepairTool Module
 
 set content= ..\Git\bin\bash.exe
 
@@ -20,7 +22,7 @@ for /f "delims=" %%i in ('type ..\config\plugin.txt') do set plugin=%%i
 
 powershell.exe -command write-host "This tool may not fix all jar issues. We recommend updating your code manually or find alternates of the plugin that does not work." -f yellow
 @echo [WARNING] This tool may not fix all jar issues. We recommend updating your code manually or find alternates of the plugin that does not work. >> ..\log.txt
-%content% --login -i -c "sleep 20s"
+%content% --login -i -c "sleep 15s"
 
 cls
 
@@ -45,8 +47,8 @@ if exist %plugin%.jar (
 	powershell.exe -command write-host "Found %plugin%.jar. Using Special Mapping Methods." -f green
 	@echo [Info] Found %plugin%.jar. Using Special Mapping Methods. >> ..\log.txt
 	%content% --login -i -c "java -jar Buildtools_Files/BuildData/bin/SpecialSource-2.jar map -m Buildtools_Files/CraftBukkit/deprecation-mappings.csrg -i ../plugin/%plugin%.jar -o ../plugin/%plugin%-fixed.jar"
-	
 	%content% --login -i -c "sleep 5s"
+	
 	if exist ../plugin/%plugin%-fixed.jar (
 		@echo Moving %plugin%.jar to plugin\plugin-dump
 		%content% --login -i -c "sleep 5s"
@@ -64,11 +66,13 @@ if exist %plugin%.jar (
 	) else (
 		powershell.exe -command write-host "The program has failed to fix the jar using SpecialSource jar. Would recommend checking your code and edit it manually." -f yellow
 		@echo [WARNING] The program has failed to fix the jar using SpecialSource jar. Would recommend checking your code and edit it manually. >> ..\log.txt
-		exit
 	)
 	
 ) else (
 	@echo [ERROR] Could not find %plugin%.jar in folder plugin. >> ..\log.txt
 )
 
+%content% --login -i -c "sleep 5s"
+
+cd ..\
 exit

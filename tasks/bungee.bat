@@ -73,7 +73,8 @@ If exist ../bungee/BungeeCord.jar (
 )
 
 cls
-@echo Updated BungeeCord
+powershell.exe -command write-host "Updated BungeeCord Successfully." -f green
+@echo [Info] Updated BungeeCord Successfully. >> ..\log.txt
 %content% --login -i -c "sleep 10s"
 
 cd ..\

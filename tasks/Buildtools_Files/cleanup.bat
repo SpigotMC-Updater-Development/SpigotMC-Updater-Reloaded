@@ -1,11 +1,17 @@
 @echo off
 
+if exist tasks/Buildtools_Files/cleanup.bat (
+	@echo [Info] Loading Cleanup Module... >> log.txt
+) else (
+	exit
+)
+
 set startdir=%~dp0
 
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
-title Running SpigotMC Updater v.%v% BuildTools.jar File Cleanup Tool
+title Running SpigotMC Updater v.%v% Cleanup Module
 
 cd %startdir%
 

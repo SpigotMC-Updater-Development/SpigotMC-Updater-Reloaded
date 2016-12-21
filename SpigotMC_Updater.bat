@@ -2,6 +2,10 @@
 
 title Loading SpigotMC Updater...
 
+if exist tasks/version.txt (
+	del /f tasks\version.txt
+)
+
 powershell -command Start-Sleep -m 2000
 if exist tasks\session.txt (
     del /f tasks\session.txt
@@ -20,8 +24,14 @@ for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 if not exist tasks/version.txt (
 	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
-) else (
-    if "%v%"=="Beta-Build" (
+)
+%content% --login -i -c "sleep 5s"
+
+if "%v%"=="Beta-Build" (
+	cls
+	powershell.exe -command write-host "You are running a Beta Build. This means bugs are possible and alot of crashes are possible." -f red
+	@echo [WARNING] You are running a Beta Build. This means bugs are possible and alot of crashes are possible. >> log.txt
+	powershell -command Start-Sleep -s 15
 	powershell -command Invoke-WebRequest -Uri https://github.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded/archive/master.zip -OutFile beta.zip
 	%content% --login -i -c "sleep 5s"
 	
@@ -42,16 +52,9 @@ if not exist tasks/version.txt (
 		@echo [WARNING] Unable to get the beta build. You may not get the recommended fixes. >> log.txt
 		powershell -command Start-Sleep -s 15
 	)
-    )
 )
 
 title Loading SpigotMC Updater v.%v%...
-
-if "%v%"=="Beta-Build" (
-	powershell.exe -command write-host "You are running a Beta Build. This means bugs are possible and alot of crashes are possible." -f red
-	@echo [WARNING] You are running a Beta Build. This means bugs are possible and alot of crashes are possible. >> log.txt
-	powershell -command Start-Sleep -s 15
-)
 
 @echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
 @echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt

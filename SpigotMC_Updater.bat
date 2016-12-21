@@ -2,10 +2,6 @@
 
 title Loading SpigotMC Updater...
 
-if not exist tasks/version.txt (
-	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
-)
-
 powershell -command Start-Sleep -m 2000
 if exist tasks\session.txt (
     del /f tasks\session.txt
@@ -22,7 +18,40 @@ set startdir=%~dp0
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
+if not exist tasks/version.txt (
+	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
+) else (
+    if "%v%"=="Beta-Build" (
+	powershell -command Invoke-WebRequest -Uri https://github.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded/archive/master.zip -OutFile beta.zip
+	%content% --login -i -c "sleep 5s"
+	
+	if exist beta.zip (
+		@echo Updating Beta Build to latest from GitHub
+		powershell -command Expand-Archive -Force beta.zip
+		powershell -command Start-Sleep -s 5
+		copy beta\master\*.* ..\
+		powershell -command Start-Sleep -s 5
+		copy beta\master\tasks\*.* ..\tasks
+		powershell -command Start-Sleep -s 5
+		copy beta\master\tasks\Buildtools_Files\*.* ..tasks\Buildtools_Files
+		powershell -command Start-Sleep -s 5
+		rmdir master
+		powershell -command Start-Sleep -s 5
+	) else (
+		powershell.exe -command write-host "Unable to get the beta build. You may not get the recommended fixes." -f yellow
+		@echo [WARNING] Unable to get the beta build. You may not get the recommended fixes. >> log.txt
+		powershell -command Start-Sleep -s 15
+	)
+    )
+)
+
 title Loading SpigotMC Updater v.%v%...
+
+if "%v%"=="Beta-Build" (
+	powershell.exe -command write-host "You are running a Beta Build. This means bugs are possible and alot of crashes are possible." -f red
+	@echo [WARNING] You are running a Beta Build. This means bugs are possible and alot of crashes are possible. >> log.txt
+	powershell -command Start-Sleep -s 15
+)
 
 @echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
 @echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt
@@ -97,24 +126,46 @@ cls
 @echo Running check on all modules to make sure they are there and what shouldn't be there.
 @echo [Info] Running check on all modules to make sure they are there and what shouldn't be there. >> log.txt
 
-if exist menu.bat (
-    powershell.exe -command write-host "Found %startdir%menu.bat." -f green
-    @echo [Info] Found %startdir%menu.bat. >> log.txt
+if exist tasks/bungee.bat (
+    powershell.exe -command write-host "Found %startdir%tasks/bungee.bat." -f green
+    @echo [Info] Found %startdir%tasks/bungee.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
 ) else (
-    powershell.exe -command write-host "Cannot find %startdir%menu.bat." -f red
-    @echo [ERROR] Cannot find %startdir%menu.bat. >> log.txt
+    powershell.exe -command write-host "Cannot find %startdir%tasks/bungee.bat." -f red
+    @echo [ERROR] Cannot find %startdir%bungee/menu.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
 
-if exist tasks/delbt.bat (
-    powershell.exe -command write-host "Found %startdir%tasks\delbt.bat." -f green
-    @echo [Info] Found %startdir%tasks\delbt.bat. >> log.txt
+if exist tasks/menu.bat (
+    powershell.exe -command write-host "Found %startdir%tasks/menu.bat." -f green
+    @echo [Info] Found %startdir%tasks/menu.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
 ) else (
-    powershell.exe -command write-host "Cannot find %startdir%tasks\delbt.bat." -f red
-    @echo [ERROR] Cannot find %startdir%tasks\delbt.bat. >> log.txt
+    powershell.exe -command write-host "Cannot find %startdir%tasks/menu.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks/menu.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
+if exist tasks/paper.bat (
+    powershell.exe -command write-host "Found %startdir%tasks/paper.bat." -f green
+    @echo [Info] Found %startdir%tasks/paper.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks/paper.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks/paper.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
+if exist tasks/updatebt.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\updatebt.bat." -f green
+    @echo [Info] Found %startdir%tasks\updatebt.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\updatebt.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\updatebt.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
@@ -130,6 +181,17 @@ if exist tasks/plugin_repair_tool.bat (
     exit
 )
 
+if exist tasks/reportbug.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\reportbug.bat." -f green
+    @echo [Info] Found %startdir%tasks\reportbug.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\reportbug.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\reportbug.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
 if exist tasks/update.bat (
     powershell.exe -command write-host "Found %startdir%tasks\update.bat." -f green
     @echo [Info] Found %startdir%tasks\update.bat. >> log.txt
@@ -141,6 +203,17 @@ if exist tasks/update.bat (
     exit
 )
 
+if exist tasks/updatebt.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\updatebt.bat." -f green
+    @echo [Info] Found %startdir%tasks\updatebt.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\updatebt.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\updatebt.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
 if exist tasks/Buildtools_Files/run.bat (
     powershell.exe -command write-host "Found %startdir%tasks\Buildtools_Files\run.bat." -f green
     @echo [Info] Found %startdir%tasks\Buildtools_Files\run.bat. >> log.txt
@@ -148,6 +221,17 @@ if exist tasks/Buildtools_Files/run.bat (
 ) else (
     powershell.exe -command write-host "Cannot find %startdir%tasks\Buildtools_Files\run.bat." -f red
     @echo [ERROR] Cannot find %startdir%tasks\Buildtools_Files\run.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
+if exist tasks/Buildtools_Files/cleanup.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\Buildtools_Files\cleanup.bat." -f green
+    @echo [Info] Found %startdir%tasks\Buildtools_Files\cleanup.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\Buildtools_Files\cleanup.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\Buildtools_Files\cleanup.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )

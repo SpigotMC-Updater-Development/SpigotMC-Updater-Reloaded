@@ -1,16 +1,19 @@
 @echo off
 
-If exist tasks/delbt.bat (
-    goto pass
+If exist tasks/updatebt.bat (
+    @echo [Info] Loading UpdateBT Module...
 ) else (
     exit
 )
 
-:pass
-
 set startdir=%~dp0
 
 cd %startdir%
+
+set v=
+for /f "delims=" %%i in ('type version.txt') do set v=%%i
+
+title Running SpigotMC Updater v.%v% UpdateBT Module
 
 set content=..\Git\bin\bash.exe
 
@@ -53,6 +56,7 @@ if exist Buildtools_Files/BuildTools.jar (
     powershell.exe -command write-host "Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down." -f red
     @echo [ERROR] Failed to get BuildTools.jar from hub.spigotmc.org. This maybe due to no Read/Write access in Buildtools_Files or hub.spigotmc.org is down. >> ..\log.txt
 )
+%content% --login -i -c "sleep 5s"
 
 :exit
 cd ..\

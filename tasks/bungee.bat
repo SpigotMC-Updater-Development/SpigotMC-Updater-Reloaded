@@ -81,6 +81,7 @@ cd ..\
 exit
 
 :error
+cls
 powershell.exe -command write-host "Failed to Update Bungeecord.jar" -f red
 @echo [ERROR] Failed to Update Bungeecord.jar. >> ..\log.txt
 %content% --login -i -c "sleep 10s"

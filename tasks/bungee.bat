@@ -19,7 +19,9 @@ title Running SpigotMC Updater v.%v% BungeeCord Module
 
 powershell.exe -command write-host "We removed downloading modules due to BungeeCord automatically generating them for the right version." -f yellow
 @echo [WARNING] We removed downloading modules due to BungeeCord automatically generating them for the right version. >> ..\log.txt
-%content% --login -i -c "sleep 5s"
+%content% --login -i -c "sleep 15s"
+
+cls
 
 @echo Updating BungeeCord.jar
 @echo [Info] Updating BungeeCord.jar >> ..\log.txt

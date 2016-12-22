@@ -1,5 +1,12 @@
 @echo off
 
+if exist tasks/session.txt (
+	del /f tasks\session.txt
+	@echo [Info] Loading Setup Module... >> log.txt
+) else (
+	exit
+)
+
 set startdir=%~dp0
 
 set v=

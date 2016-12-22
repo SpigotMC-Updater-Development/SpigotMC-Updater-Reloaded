@@ -31,7 +31,7 @@ If not exist ../paper/ (
 	) else (
 		powershell.exe -command write-host "The paper folder was not created due to Read and Write not enabled. Terminating Paper Module." -f red
 		@echo [ERROR] The paper folder was not created due to Read and Write not enabled. Terminating Paper Module. >> ..\log.txt
-		goto skip
+		goto error
 	)
 )
 %content% --login -i -c "sleep 5s"
@@ -53,7 +53,7 @@ If exist ../paper/paperclip.jar (
 )
 
 %content% --login -i -c "sleep 5s"
-:skip
+
 cls
 
 @echo Downloading paperclip.jar...

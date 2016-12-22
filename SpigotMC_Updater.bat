@@ -171,6 +171,7 @@ set content=Git\bin\bash.exe
 %content% --login -i -c "sleep 5s"
 
 if exist tasks/beta.txt (
+	del /f tasks\beta.txt
 	powershell.exe -command write-host "%startdir%tasks\update.bat does not work in beta. Going straight to startup. To get out of beta, edit %startdir%tasks\version.txt and Change line from %v% to none." -f yellow
 	@echo [WARNING] %startdir%tasks\update.bat does not work in beta. Going straight to startup. To get out of beta, edit %startdir%tasks\version.txt and Change line from %v% to none. >> log.txt
 	%content% --login -i -c "sleep 15s"
@@ -317,17 +318,51 @@ if exist tasks/Buildtools_Files/cleanup.bat (
     exit
 )
 
+if exist menu.bat (
+    powershell.exe -command write-host "%startdir%menu.bat is deprecated. Removing the module." -f yellow
+    @echo [Warning] %startdir%menu.bat is deprecated. Removing the module. >> log.txt
+    rename menu.bat menu.bat.deprecated
+    %content% --login -i -c "sleep 5s"
+    if exist menu.bat.deprecated (
+        powershell.exe -command write-host "%startdir%menu.bat was removed successfully." -f green
+        @echo [Info] %startdir%menu.bat was removed successfully. >> log.txt
+    ) else (
+        powershell.exe -command write-host "%startdir%menu.bat could not be removed. Make sure %startdir% has Read and Write access." -f red
+        @echo [ERROR] %startdir%menu.bat could not be removed. Make sure %startdir% has Read and Write access. >> log.txt
+        %content% --login -i -c "sleep 5s"
+        exit
+    )
+    %content% --login -i -c "sleep 5s"
+)
+
 if exist tasks/help.bat (
     powershell.exe -command write-host "%startdir%tasks\help.bat is deprecated. Removing the module." -f yellow
     @echo [Warning] %startdir%tasks\help.bat is deprecated. Removing the module. >> log.txt
     rename tasks\help.bat help.bat.deprecated
     %content% --login -i -c "sleep 5s"
     if exist tasks/help.bat.deprecated (
-        powershell.exe -command write-host "%startdir%tasks\update.bat was removed successfully." -f green
-        @echo [Info] %startdir%tasks\update.bat was removed successfully. >> log.txt
+        powershell.exe -command write-host "%startdir%tasks\help.bat was removed successfully." -f green
+        @echo [Info] %startdir%tasks\help.bat was removed successfully. >> log.txt
     ) else (
-        powershell.exe -command write-host "%startdir%tasks\update.bat could not be removed. Make sure %startdir%tasks has Read and Write access." -f red
-        @echo [ERROR] %startdir%tasks\update.bat could not be removed. Make sure %startdir%tasks has Read and Write access. >> log.txt
+        powershell.exe -command write-host "%startdir%tasks\uhelp.bat could not be removed. Make sure %startdir%tasks has Read and Write access." -f red
+        @echo [ERROR] %startdir%tasks\help.bat could not be removed. Make sure %startdir%tasks has Read and Write access. >> log.txt
+        %content% --login -i -c "sleep 5s"
+        exit
+    )
+    %content% --login -i -c "sleep 5s"
+)
+
+if exist tasks/delbt.bat (
+    powershell.exe -command write-host "%startdir%tasks\delbt.bat is deprecated. Removing the module." -f yellow
+    @echo [Warning] %startdir%tasks\delbt.bat is deprecated. Removing the module. >> log.txt
+    rename tasks\delbt.bat delbt.bat.deprecated
+    %content% --login -i -c "sleep 5s"
+    if exist tasks/delbt.bat.deprecated (
+        powershell.exe -command write-host "%startdir%tasks\delbt.bat was removed successfully." -f green
+        @echo [Info] %startdir%tasks\delbt.bat was removed successfully. >> log.txt
+    ) else (
+        powershell.exe -command write-host "%startdir%tasks\delbt.bat could not be removed. Make sure %startdir%tasks has Read and Write access." -f red
+        @echo [ERROR] %startdir%tasks\delbt.bat could not be removed. Make sure %startdir%tasks has Read and Write access. >> log.txt
         %content% --login -i -c "sleep 5s"
         exit
     )
@@ -345,6 +380,23 @@ if exist config/gitlocation.txt (
     ) else (
         powershell.exe -command write-host "%startdir%config\gitlocation.txt could not be removed. Make sure %startdir%config has Read and Write access." -f red
         @echo [ERROR] %startdir%config\gitlocation.txt could not be removed. Make sure %startdir%config has Read and Write access. >> log.txt
+        %content% --login -i -c "sleep 5s"
+        exit
+    )
+    %content% --login -i -c "sleep 5s"
+)
+
+if exist config/bungeelocation.txt (
+    powershell.exe -command write-host "%startdir%config\bungeelocation.txt is deprecated. Removing the module." -f yellow
+    @echo [Warning] %startdir%config\bungeelocation.txt is deprecated. Removing the module. >> log.txt
+    rename config\bungeelocation.txt bungeelocation.txt.deprecated
+    %content% --login -i -c "sleep 5s"
+    if exist config/bungeelocation.txt.deprecated (
+        powershell.exe -command write-host "%startdir%config\bungeelocation.txt was removed successfully." -f green
+        @echo [Info] %startdir%config\bungeelocation.txt was removed successfully. >> log.txt
+    ) else (
+        powershell.exe -command write-host "%startdir%config\bungeelocation.txt could not be removed. Make sure %startdir%config has Read and Write access." -f red
+        @echo [ERROR] %startdir%config\bungeelocation.txt could not be removed. Make sure %startdir%config has Read and Write access. >> log.txt
         %content% --login -i -c "sleep 5s"
         exit
     )

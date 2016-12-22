@@ -21,19 +21,19 @@ set content=..\Git\bin\bash.exe
 @echo [Info] Deleting old Buildtools.jar >> ..\log.txt
 
 %content% --login -i -c "sleep 5s"
-if exist BuildTools_Files/BuildTools.jar (
-    del /f BuildTools_Files\BuildTools.jar
+if exist Buildtools_Files/BuildTools.jar (
+    del /f Buildtools_Files\BuildTools.jar
 ) else (
     powershell.exe -command write-host "Buildtools.jar isnt located in %startdir%Buildtools_Files\. Skipping this step and Downloading Buildtools.jar." -f yellow
     @echo [Warning] Buildtools.jar isnt located in %startdir%Buildtools_Files\. Skipping this step and Downloading Buildtools.jar >> ..\log.txt
     %content% --login -i -c "sleep 5s"
-    goto exit
+    goto skip
 )
 
 %content% --login -i -c "sleep 5s"
 
 cls
-if exist BuildTools_Files/BuildTools.jar (
+if exist Buildtools_Files/BuildTools.jar (
     powershell.exe -command write-host "Failed to delete old version. Make sure you have Read, Write, and Execute allowed in %startdir%Buildtools_Files\." -f red
     @echo [ERROR] Failed to delete old version. Make sure you have Read, Write, and Execute allowed in %startdir%Buildtools_Files\. >> ..\log.txt
     goto exit
@@ -44,6 +44,8 @@ if exist BuildTools_Files/BuildTools.jar (
 
 %content% --login -i -c "sleep 5s"
 cls
+
+:skip
 
 @echo Updating Buildtools.jar :D
 @echo [Info] Updating Buildtools.jar :D >> ..\log.txt

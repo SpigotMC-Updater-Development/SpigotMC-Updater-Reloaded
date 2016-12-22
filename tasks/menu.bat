@@ -8,19 +8,27 @@ if exist tasks/menu.bat (
 
 set startdir=%~dp0
 
+cls
+
 set content=Git\bin\bash.exe
 
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
+
+title SpigotMC Updater v.%v%
 
 echo MSGBOX "Make sure to always backup your files incase an update breaks" >> %temp%\TEMPmessage.vbs
 %content% --login -i -c "sleep 5s"
 call %temp%\TEMPmessage.vbs
 del %temp%\TEMPmessage.vbs /f /q
 
+goto load
+
 :start
-cls
 title SpigotMC Updater v.%v%
+
+:load
+cls
 
 powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Report a bug in this script `r`n 8. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo" -f darkyellow
 
@@ -78,4 +86,3 @@ cls
 %content% --login -i -c "sleep 15s"
 
 exit
-

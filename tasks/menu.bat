@@ -22,7 +22,7 @@ del %temp%\TEMPmessage.vbs /f /q
 cls
 title SpigotMC Updater v.%v%
 
-powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`nWhat task do you want to run? Must use numbers and press enter. `r`n1. Update Buildtools `r`n2. Run Buildtools `r`n3. Clean Buildtools Folder `r`n4. Repair a plugin with Spigot's Special Recipe `r`n5. Grab BungeeCord `r`n6. Grabs PaperSpigot `r`n7. Report a bug in this script `r`n8. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo" -f yellow
+powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Report a bug in this script `r`n 8. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo" -f darkyellow
 
 Set /P "_1=>" || Set _1=NothingChosen
 If "%_1%"=="NothingChosen" goto :commandnotfound

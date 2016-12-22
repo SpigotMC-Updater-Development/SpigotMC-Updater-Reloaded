@@ -1,14 +1,14 @@
 @echo off
 
 if exist tasks/reportbug.bat (
-	@echo Loading the ReportBug Module... >> log.txt
+	@echo [Info] Loading the ReportBug Module... >> log.txt
 ) else (
 	exit
 )
 
 set startdir=%~dp0
 
-cd %strtdir%
+cd %startdir%
 
 set v=
 for /f "delims=" %%i in ('type version.txt') do set v=%%i

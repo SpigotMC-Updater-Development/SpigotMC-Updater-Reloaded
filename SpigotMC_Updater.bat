@@ -2,7 +2,7 @@
 
 title Loading SpigotMC Updater...
 
-con: cols=180 lines=50
+mode con: cols=180 lines=50
 @echo Resized for script :D
 cls
 

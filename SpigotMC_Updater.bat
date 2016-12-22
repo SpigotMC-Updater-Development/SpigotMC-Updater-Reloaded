@@ -6,10 +6,6 @@ mode con: cols=180 lines=50
 @echo Resized for script :D
 cls
 
-if exist tasks/version.txt (
-	del /f tasks\version.txt
-)
-
 powershell -command Start-Sleep -m 2000
 if exist tasks\session.txt (
     del /f tasks\session.txt

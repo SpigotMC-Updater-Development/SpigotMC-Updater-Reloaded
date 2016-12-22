@@ -50,57 +50,57 @@ if "%v%"=="Beta-Build" (
 			@echo [Info] Updating %startdir%SpigotMC_Updater.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\SpigotMC_Updater.bat %startdir%
-			powershell -command Start-Sleep -s 10
+			powershell -command Start-Sleep -s 5
 			@echo [Info] Updated %startdir%SpigotMC_Updater.bat >> log.txt
 			@echo [Info] Updating %startdir%setup.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\setup.bat %startdir%
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%setup.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\bungee.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\bungee.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\bungee.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\menu.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\menu.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\paper.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\paper.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\paper.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\plugin_repair_tool.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\plugin_repair_tool.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\plugin_repair_tool.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\reportbug.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\reportbug.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\update.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\updatebt.bat %startdir%tasks
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\updatebt.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\run.bat %startdir%tasks\Buildtools_Files
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\cleanup.bat %startdir%tasks\Buildtools_Files
-			powershell -command Start-Sleep -s 2
+			powershell -command Start-Sleep -s 1
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
 			@echo [Info] Deleting Updating %startdir%beta\. >> log.txt
 			rd /s /q %startdir%beta
@@ -154,7 +154,7 @@ if exist tasks/error.txt (
    exit
 ) else (
     title Loading SpigotMC Updater v.%v%...
-	cls
+    cls
     del /f setup.bat
     cls
     powershell.exe -command write-host "Setup Completed." -f green
@@ -187,7 +187,7 @@ If /i "%_2%"=="N" goto skip
 If /i "%_2%"=="n" goto skip
 
 :autoupdate
-@echo I am a dummy file xD >> tasks\session.txt
+
 start /b /wait tasks\update.bat
 
 set v=
@@ -208,34 +208,34 @@ cls
 @echo [Info] Running check on all modules to make sure they are there and what shouldn't be there. >> log.txt
 
 if exist tasks/bungee.bat (
-    powershell.exe -command write-host "Found %startdir%tasks/bungee.bat." -f green
-    @echo [Info] Found %startdir%tasks/bungee.bat. >> log.txt
+    powershell.exe -command write-host "Found %startdir%tasks\bungee.bat." -f green
+    @echo [Info] Found %startdir%tasks\bungee.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
 ) else (
-    powershell.exe -command write-host "Cannot find %startdir%tasks/bungee.bat." -f red
-    @echo [ERROR] Cannot find %startdir%bungee/menu.bat. >> log.txt
+    powershell.exe -command write-host "Cannot find %startdir%tasks\bungee.bat." -f red
+    @echo [ERROR] Cannot find %startdir%bungee\menu.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
 
 if exist tasks/menu.bat (
-    powershell.exe -command write-host "Found %startdir%tasks/menu.bat." -f green
-    @echo [Info] Found %startdir%tasks/menu.bat. >> log.txt
+    powershell.exe -command write-host "Found %startdir%tasks\menu.bat." -f green
+    @echo [Info] Found %startdir%tasks\menu.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
 ) else (
-    powershell.exe -command write-host "Cannot find %startdir%tasks/menu.bat." -f red
-    @echo [ERROR] Cannot find %startdir%tasks/menu.bat. >> log.txt
+    powershell.exe -command write-host "Cannot find %startdir%tasks\menu.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\menu.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
 
 if exist tasks/paper.bat (
-    powershell.exe -command write-host "Found %startdir%tasks/paper.bat." -f green
-    @echo [Info] Found %startdir%tasks/paper.bat. >> log.txt
+    powershell.exe -command write-host "Found %startdir%tasks\paper.bat." -f green
+    @echo [Info] Found %startdir%tasks\paper.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
 ) else (
-    powershell.exe -command write-host "Cannot find %startdir%tasks/paper.bat." -f red
-    @echo [ERROR] Cannot find %startdir%tasks/paper.bat. >> log.txt
+    powershell.exe -command write-host "Cannot find %startdir%tasks\paper.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\paper.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
@@ -353,9 +353,7 @@ if exist config/gitlocation.txt (
 
 :ready
 
-@echo U wot m8 >> tasks\session.txt
-
-start /b /wait menu.bat
+start /b /wait tasks\menu.bat
 goto exit
 
 :exit

@@ -1,29 +1,33 @@
 @echo off
 
 if exist tasks\Buildtools_Files\run.bat (
-	goto run
+	@echo [Info] Loading BuildTools Module... >> log.txt
 ) else (
 	exit
 )
 
-:run
-
 set startdir=%~dp0
 
+cd %startdir%
+
 cls
+
+set v=
+for /f "delims=" %%i in ('type ..\version.txt') do set v=%%i
+
+title Running SpigotMC Updater v.%v% BuildTools Module
 
 set version=
 for /f "delims=" %%i in ('type ..\..\config\version.txt') do set version=%%i
 
 set content=..\..\Git\Bin\Bash.exe
 
-
 cls
 powershell.exe -command write-host "We recommend not closing the program while BuildTools.jar is running. Doing so can corrupt the files it generates and cause cleaning it out and starting over." -f yellow
 @echo [WARNING] We recommend not closing the program while BuildTools.jar is running. Doing so can corrupt the files it generates and cause cleaning it out and starting over. >> ..\..\log.txt
 %content% --login -i -c "sleep 15s"
 
-if exist tasks\Buildtools_Files\BuildTools.jar (
+if exist BuildTools.jar (
 	powershell.exe -command write-host "Running BuildTools.jar" -f green
 	@echo [Info] Running BuildTools.jar >> ..\..\log.txt
 ) else (
@@ -43,7 +47,8 @@ if exist BuildTools.jar (
 ) else (
 	powershell.exe -command write-host "BuildTools.jar cannot be found. terminating the proccess." -f red
 	@echo [Info] BuildTools.jar cannot be found. terminating the proccess. >> ../../log.txt
-	exit
+	%content% --login -i -c "sleep 5s"
+	goto error
 )
 
 %content% --login -i -c "sleep 5s"
@@ -88,7 +93,8 @@ if exist BuildTools.log.txt (
 )
 
 
-%content% --login -i -c "sleep 20s"
+%content% --login -i -c "sleep 15s"
+:error
 cd ..\..\
 
 exit

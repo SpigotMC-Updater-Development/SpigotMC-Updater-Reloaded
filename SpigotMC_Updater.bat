@@ -19,13 +19,13 @@ if exist log.txt (
 set startdir=%~dp0
 
 :setupcheck
-set v=
-for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
-
 if not exist tasks/version.txt (
 	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
 )
 powershell -command Start-Sleep -s 5
+
+set v=
+for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 if "%v%"=="Beta-Build" (
 	cls

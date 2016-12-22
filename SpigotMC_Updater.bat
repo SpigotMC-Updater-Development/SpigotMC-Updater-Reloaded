@@ -37,21 +37,82 @@ if "%v%"=="Beta-Build" (
 	
 	if exist beta.zip (
 		@echo Updating Beta Build to latest from GitHub
+		@echo [Info] Updating Beta Build to latest from GitHub >> log.txt
 		powershell -command Expand-Archive -Force beta.zip
 		powershell -command Start-Sleep -s 5
-		copy beta\master\*.* ..\
-		powershell -command Start-Sleep -s 5
-		copy beta\master\tasks\*.* ..\tasks
-		powershell -command Start-Sleep -s 5
-		copy beta\master\tasks\Buildtools_Files\*.* ..tasks\Buildtools_Files
-		powershell -command Start-Sleep -s 5
-		rmdir master
+		if exist beta/ (
+			del /f beta.zip
+			@echo [Info] Updating %startdir%SpigotMC_Updater.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\SpigotMC_Updater.bat %startdir%
+			powershell -command Start-Sleep -s 10
+			@echo [Info] Updated %startdir%SpigotMC_Updater.bat >> log.txt
+			@echo [Info] Updating %startdir%setup.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\setup.bat %startdir%
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%setup.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\bungee.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\bungee.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\bungee.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\menu.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\menu.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\paper.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\paper.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\paper.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\plugin_repair_tool.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\plugin_repair_tool.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\plugin_repair_tool.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\reportbug.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\reportbug.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\update.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\updatebt.bat %startdir%tasks
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\updatebt.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\run.bat %startdir%tasks\Buildtools_Files
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updated %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
+			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
+			
+			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\cleanup.bat %startdir%tasks\Buildtools_Files
+			powershell -command Start-Sleep -s 2
+			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
+			@echo [Info] Deleting Updating %startdir%beta\. >> log.txt
+			rmdir beta /s
+		) else (
+			powershell.exe -command write-host "Unable to extract %startdir%beta.zip. Make sure %startdir% has Read/Write access. Using the current beta you are on." -f red
+			@echo [ERROR] Unable to extract %startdir%beta.zip. Make sure %startdir% has Read/Write access. Using the current beta you are on. >> log.txt
+			del /f beta.zip
+		)
 		powershell -command Start-Sleep -s 5
 	) else (
 		powershell.exe -command write-host "Unable to get the beta build. You may not get the recommended fixes." -f yellow
 		@echo [WARNING] Unable to get the beta build. You may not get the recommended fixes. >> log.txt
 		powershell -command Start-Sleep -s 15
 	)
+	
+	@echo Do u Beta m8. >> tasks\beta.txt
+	
 )
 
 title Loading SpigotMC Updater v.%v%...
@@ -99,6 +160,14 @@ set content=Git\bin\bash.exe
 @echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573.
 @echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573. >> log.txt
 %content% --login -i -c "sleep 5s"
+
+if exist tasks/beta.txt (
+	powershell.exe -command write-host "%startdir%tasks\update.bat does not work in beta. Going straight to startup. To get out of beta, edit %startdir%tasks\version.txt and Change line from %v% to none." -f yellow
+	@echo [WARNING] %startdir%tasks\update.bat does not work in beta. Going straight to startup. To get out of beta, edit %startdir%tasks\version.txt and Change line from %v% to none. >> log.txt
+	%content% --login -i -c "sleep 15s"
+	goto startup
+)
+
 echo.
 @echo Do you want to Check for updates 
 Set /P _2=(Y, N) || Set _2=NothingChosen

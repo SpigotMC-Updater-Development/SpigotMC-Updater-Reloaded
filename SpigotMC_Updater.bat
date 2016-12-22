@@ -2,6 +2,10 @@
 
 title Loading SpigotMC Updater...
 
+con: cols=180 lines=50
+@echo Resized for script :D
+cls
+
 if exist tasks/version.txt (
 	del /f tasks\version.txt
 )
@@ -99,7 +103,7 @@ if "%v%"=="Beta-Build" (
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
 			@echo [Info] Deleting Updating %startdir%beta\. >> log.txt
-			rmdir beta /q
+			rd /s /q %startdir%beta
 		) else (
 			cls
 			powershell.exe -command write-host "Unable to extract %startdir%beta.zip. Make sure %startdir% has Read/Write access. Using the current beta you are on." -f red

@@ -1,7 +1,7 @@
 @echo off
 
 If exist tasks/updatebt.bat (
-    @echo [Info] Loading UpdateBT Module...
+    @echo [Info] Loading UpdateBT Module... >> log.txt
 ) else (
     exit
 )

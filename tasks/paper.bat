@@ -23,7 +23,7 @@ title Running SpigotMC Updater v.%v% Paper Module
 If not exist ../paper/ (
 	powershell.exe -command write-host "The paper folder is missing. Creating directory..." -f yellow
 	@echo [WARNING] The paper folder is missing. Creating directory... >> ..\log.txt
-	md paper
+	md ..\paper
 	%content% --login -i -c "sleep 5s"
 	If exist ../paper/ (
 		powershell.exe -command write-host "The paper folder has been sucessfully created." -f green
@@ -79,8 +79,8 @@ exit
 
 :error
 cls
-powershell.exe -command write-host "Failed to Update Bungeecord.jar" -f red
-@echo [ERROR] Failed to Update Bungeecord.jar. >> ..\log.txt
+powershell.exe -command write-host "Failed to Update paperclip.jar" -f red
+@echo [ERROR] Failed to Update paperclip.jar. >> ..\log.txt
 %content% --login -i -c "sleep 10s"
 
 cd ..\

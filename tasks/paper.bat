@@ -16,8 +16,6 @@ for /f "delims=" %%i in ('type version.txt') do set v=%%i
 
 title Running SpigotMC Updater v.%v% Paper Module
 
-powershell.exe -command write-host "We removed downloading modules due to BungeeCord automatically generating them for the right version." -f yellow
-@echo [WARNING] We removed downloading modules due to BungeeCord automatically generating them for the right version. >> ..\log.txt
 %content% --login -i -c "sleep 5s"
 
 @echo Updating paperclip.jar
@@ -33,7 +31,7 @@ If not exist ../paper/ (
 	) else (
 		powershell.exe -command write-host "The paper folder was not created due to Read and Write not enabled. Terminating Paper Module." -f red
 		@echo [ERROR] The paper folder was not created due to Read and Write not enabled. Terminating Paper Module. >> ..\log.txt
-		goto error
+		goto skip
 	)
 )
 %content% --login -i -c "sleep 5s"
@@ -55,7 +53,7 @@ If exist ../paper/paperclip.jar (
 )
 
 %content% --login -i -c "sleep 5s"
-
+:skip
 cls
 
 @echo Downloading paperclip.jar...
@@ -80,6 +78,7 @@ cd ..\
 exit
 
 :error
+cls
 powershell.exe -command write-host "Failed to Update Bungeecord.jar" -f red
 @echo [ERROR] Failed to Update Bungeecord.jar. >> ..\log.txt
 %content% --login -i -c "sleep 10s"

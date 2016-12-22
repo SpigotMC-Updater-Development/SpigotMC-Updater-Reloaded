@@ -29,13 +29,14 @@ for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
 if "%v%"=="Beta-Build" (
 	cls
-	powershell.exe -command write-host "You are running a Beta Build. This means bugs are possible and alot of crashes are possible." -f red
+	powershell.exe -command write-host "You are running a Beta Build. This means bugs are possible and alot of crashes are possible." -f yellow
 	@echo [WARNING] You are running a Beta Build. This means bugs are possible and alot of crashes are possible. >> log.txt
 	powershell -command Start-Sleep -s 15
 	powershell -command Invoke-WebRequest -Uri https://github.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded/archive/master.zip -OutFile beta.zip
 	powershell -command Start-Sleep -s 5
 	
 	if exist beta.zip (
+		cls
 		@echo Updating Beta Build to latest from GitHub
 		@echo [Info] Updating Beta Build to latest from GitHub >> log.txt
 		powershell -command Expand-Archive -Force beta.zip
@@ -44,68 +45,70 @@ if "%v%"=="Beta-Build" (
 			del /f beta.zip
 			@echo [Info] Updating %startdir%SpigotMC_Updater.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\SpigotMC_Updater.bat %startdir%
+			copy /y beta\SpigotMC-Updater-Reloaded-master\SpigotMC_Updater.bat %startdir%
 			powershell -command Start-Sleep -s 10
 			@echo [Info] Updated %startdir%SpigotMC_Updater.bat >> log.txt
 			@echo [Info] Updating %startdir%setup.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\setup.bat %startdir%
+			copy /y beta\SpigotMC-Updater-Reloaded-master\setup.bat %startdir%
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%setup.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\bungee.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\bungee.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\bungee.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\bungee.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\menu.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\menu.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\paper.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\paper.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\paper.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\paper.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\plugin_repair_tool.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\plugin_repair_tool.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\plugin_repair_tool.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\plugin_repair_tool.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\reportbug.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\reportbug.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\reportbug.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\update.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\update.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\reportbug.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\update.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\updatebt.bat %startdir%tasks
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\updatebt.bat %startdir%tasks
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\updatebt.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\run.bat %startdir%tasks\Buildtools_Files
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\run.bat %startdir%tasks\Buildtools_Files
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updated %startdir%tasks\Buildtools_Files\run.bat  >> log.txt
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
 			
-			copy /v /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\cleanup.bat %startdir%tasks\Buildtools_Files
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\Buildtools_Files\cleanup.bat %startdir%tasks\Buildtools_Files
 			powershell -command Start-Sleep -s 2
 			@echo [Info] Updating %startdir%tasks\Buildtools_Files\cleanup.bat >> log.txt
 			@echo [Info] Deleting Updating %startdir%beta\. >> log.txt
-			rmdir beta /s
+			rmdir beta /q
 		) else (
+			cls
 			powershell.exe -command write-host "Unable to extract %startdir%beta.zip. Make sure %startdir% has Read/Write access. Using the current beta you are on." -f red
 			@echo [ERROR] Unable to extract %startdir%beta.zip. Make sure %startdir% has Read/Write access. Using the current beta you are on. >> log.txt
 			del /f beta.zip
 		)
 		powershell -command Start-Sleep -s 5
 	) else (
+		cls
 		powershell.exe -command write-host "Unable to get the beta build. You may not get the recommended fixes." -f yellow
 		@echo [WARNING] Unable to get the beta build. You may not get the recommended fixes. >> log.txt
 		powershell -command Start-Sleep -s 15
@@ -116,6 +119,8 @@ if "%v%"=="Beta-Build" (
 )
 
 title Loading SpigotMC Updater v.%v%...
+
+cls
 
 @echo Starting SpigotMC Updater v.%v% in %startdir%. Please Wait...
 @echo [Info] Starting SpigotMC Updater v.%v% in %startdir%. Please Wait... >> log.txt

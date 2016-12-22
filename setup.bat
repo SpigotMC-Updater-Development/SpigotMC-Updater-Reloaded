@@ -134,28 +134,6 @@ if exist config/version.txt (
 
 Git\bin\bash.exe --login -i -c "sleep 5s"
 :skip4
-if exist config/bungeelocation.txt (
-	powershell.exe -command write-host "%startdir%config\bungeelocation.txt already exists. Skipping check." -f yellow
-	@echo [WARNING] %startdir%config\bungeelocation.txt already exists. Skipping check. >> log.txt
-	goto skip5
-)
-
-cls
-@echo Generating bungeelocation.txt...
-@echo [Info] Generating bungeelocation.txt... >> log.txt
-powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/bungeelocation.txt -OutFile config/bungeelocation.txt
-Git\bin\bash.exe --login -i -c "sleep 5s"
-if exist config/bungeelocation.txt (
-	powershell.exe -command write-host "Sucessfully generated %startdir%config\bungeelocation.txt" -f green
-	@echo [Info] Sucessfully generated %startdir%config\bungeelocation.txt >> log.txt
-) else (
-	powershell.exe -command write-host "Failed to generate %startdir%config\bungeelocation.txt. Make sure your have read and write access." -f red
-	@echo [ERROR] Failed to generate %startdir%config\bungeelocation.txt. Make sure your have read and write access. >> log.txt
-	goto error
-)
-Git\bin\bash.exe --login -i -c "sleep 5s"
-
-:skip5
 
 cls
 @echo Generating necessary Folders...
@@ -166,7 +144,7 @@ Git\bin\bash.exe --login -i -c "sleep 5s"
 if exist api/ (
 	powershell.exe -command write-host "%startdir%api\ already exists. Skipping check." -f yellow
 	@echo [WARNING] %startdir%api\ already exists. Skipping check. >> log.txt
-	goto skip6
+	goto skip5
 )
 
 @echo Generating folder api...
@@ -182,11 +160,11 @@ if exist api/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
-:skip6
+:skip5
 if exist plugin/ (
 	powershell.exe -command write-host "%startdir%plugin\ already exists. Skipping check." -f yellow
 	@echo [WARNING] %startdir%plugin\ already exists. Skipping check. >> log.txt
-	goto skip7
+	goto skip6
 )
 
 cls
@@ -203,11 +181,11 @@ if exist plugin/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
-:skip7
+:skip6
 if exist plugin/plugin-dump (
 	powershell.exe -command write-host "%startdir%plugin\plugin-dump already exists. Skipping check." -f yellow
 	@echo [WARNING] %startdir%plugin\plugin-dump already exists. Skipping check. >> log.txt
-	goto skip8
+	goto skip7
 )
 
 cls
@@ -224,11 +202,11 @@ if exist plugin/plugin-dump/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
-:skip8
+:skip7
 if exist serverjars/ (
 	powershell.exe -command write-host "%startdir%serverjars\ already exists. Skipping check." -f yellow
 	@echo [WARNING] %startdir%serverjars\ already exists. Skipping check. >> log.txt
-	goto skip9
+	goto skip8
 )
 
 cls
@@ -245,7 +223,7 @@ if exist serverjars/ (
 )
 Git\bin\bash.exe --login -i -c "sleep 5s"
 
-:skip9
+:skip8
 
 cls
 powershell.exe -command write-host "Finished Setting up. Now will delete setup.bat and you should never see the not found error again." -f green

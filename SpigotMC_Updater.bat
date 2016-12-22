@@ -25,7 +25,7 @@ for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 if not exist tasks/version.txt (
 	powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/beta.txt -OutFile tasks/version.txt
 )
-%content% --login -i -c "sleep 5s"
+powershell -command Start-Sleep -s 5
 
 if "%v%"=="Beta-Build" (
 	cls
@@ -33,7 +33,7 @@ if "%v%"=="Beta-Build" (
 	@echo [WARNING] You are running a Beta Build. This means bugs are possible and alot of crashes are possible. >> log.txt
 	powershell -command Start-Sleep -s 15
 	powershell -command Invoke-WebRequest -Uri https://github.com/SpigotMC-Updater-Development/SpigotMC-Updater-Reloaded/archive/master.zip -OutFile beta.zip
-	%content% --login -i -c "sleep 5s"
+	powershell -command Start-Sleep -s 5
 	
 	if exist beta.zip (
 		@echo Updating Beta Build to latest from GitHub

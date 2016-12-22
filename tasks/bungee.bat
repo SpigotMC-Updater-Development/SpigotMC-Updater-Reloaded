@@ -1,7 +1,7 @@
 @echo off
 
 if exist tasks/bungee.bat (
-	@echo [Info] Successfully loaded the Bungee Module >> log.txt
+	@echo [Info] Loading the Bungee module... >> log.txt
 ) else (
 	exit
 )
@@ -27,7 +27,7 @@ powershell.exe -command write-host "We removed downloading modules due to Bungee
 If not exist ../bungee/ (
 	powershell.exe -command write-host "The bungee folder is missing. Creating directory..." -f yellow
 	@echo [WARNING] The bungee folder is missing. Creating directory... >> ..\log.txt
-	md bungee
+	md ..\bungee
 	%content% --login -i -c "sleep 5s"
 	If exist ../bungee/ (
 		powershell.exe -command write-host "The bungee folder has been sucessfully created." -f green

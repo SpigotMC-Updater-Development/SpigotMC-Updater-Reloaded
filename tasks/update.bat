@@ -1,6 +1,6 @@
 @echo off
 
-if exist tasks/update.txt (
+if exist tasks/update.bat (
 	@echo [Info] Loading the Update module... >> log.txt
 ) else (
 	exit

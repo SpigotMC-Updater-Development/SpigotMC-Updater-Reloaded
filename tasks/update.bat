@@ -34,7 +34,7 @@ for /f "delims=" %%i in ('type version_dummy.txt') do set v2=%%i
 
 cls
 
-if %RESULT1%==%RESULT2% (
+if "%RESULT1%"=="%RESULT2%" (
 	powershell.exe -command write-host "You are using. v.%v%. Latest Version v.%v2%. `r`nNo Updates available." -f yellow
 	@echo [Info] You are using. v.%v%. Latest Version v.%v2%. >> ..\log.txt
 	@echo [WARNING] No Updates available. >> ..\log.txt

@@ -80,6 +80,54 @@ if exist BuildTools.log.txt (
 	)
 	%content% --login -i -c "sleep 5s"
 	cls
+	
+	if exist spigot-1.*.jar (
+		@echo Moving Spigot Jar to serverjars...
+		@echo [Info] Moving Spigot Jar to serverjars... >> ..\..\log.txt
+		move spigot-1.*.jar ..\..\serverjars
+		%content% --login -i -c "sleep 5s"
+		if exist ../../serverjars/spigot-1.*.jar (
+			powershell.exe -command write-host "Moved Spigot Jar Successfully." -f green
+			@echo [Info] Moved Spigot Jar Successfully. >> ..\..\log.txt
+		) else (
+			powershell.exe -command write-host "Failed to move Spigot Jar. You can still find it in %startdir%." -f yellow
+			@echo [WARNING] Failed to move Spigot Jar. You can still find it in %startdir%. >> ..\..\log.txt
+		)
+	)
+	%content% --login -i -c "sleep 5s"
+	
+	if exist craftbukkit-1.*.jar (
+		@echo Moving CraftBukkit Jar to serverjars...
+		@echo [Info] Moving CraftBukkit Jar to serverjars... >> ..\..\log.txt
+		move craftbukkit-1.*.jar ..\..\serverjars
+		%content% --login -i -c "sleep 5s"
+		if exist ../../serverjars/craftbukkit-1.*.jar (
+			powershell.exe -command write-host "Moved CraftBukkit Jar Successfully." -f green
+			@echo [Info] Moved CraftBukkit Jar Successfully. >> ..\..\log.txt
+		) else (
+			powershell.exe -command write-host "Failed to move CraftBukkit Jar. You can still find it in %startdir%." -f yellow
+			@echo [WARNING] Failed to move CraftBukkit Jar. You can still find it in %startdir%. >> ..\..\log.txt
+		)
+	)
+	%content% --login -i -c "sleep 5s"
+	
+	if exist Spigot/Spigot-API/target/spigot-api-1.*.jar (
+		@echo Moving Spigot API Jar to api...
+		@echo [Info] Moving Spigot API Jar to api... >> ..\..\log.txt
+		move Spigot\Spigot-API\target\spigot-api-1.*.jar ..\..\api
+		%content% --login -i -c "sleep 5s"
+		if exist ../../api/spigot-api-1.*.jar (
+			powershell.exe -command write-host "Moved Spigot API Jar Successfully." -f green
+			@echo [Info] Moved Spigot API Jar Successfully. >> ..\..\log.txt
+		) else (
+			powershell.exe -command write-host "Failed to move Spigot API Jar. You can still find it in %startdir%Spigot\Spigot-API\target\." -f yellow
+			@echo [WARNING] Failed to move Spigot API Jar. You can still find it in %startdir%Spigot\Spigot-API\target\. >> ..\..\log.txt
+		)
+	)
+	%content% --login -i -c "sleep 5s"
+	
+	cls
+	
 	@echo These logs were renamed to help with reporting bugs on https://hub.spigotmc.org/jira/projects/BUILDTOOLS/issues
 	@echo [Info] These logs were renamed to help with reporting bugs on https://hub.spigotmc.org/jira/projects/BUILDTOOLS/issues >> ..\..\log.txt
 	echo.
@@ -94,6 +142,7 @@ if exist BuildTools.log.txt (
 
 
 %content% --login -i -c "sleep 15s"
+
 :error
 cd ..\..\
 

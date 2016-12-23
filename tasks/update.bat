@@ -6,6 +6,8 @@ if exist tasks/update.bat (
 	exit
 )
 
+cls
+
 set startdir=%~dp0
 
 cd %startdir%
@@ -25,13 +27,10 @@ powershell -command Invoke-WebRequest -Uri http://thegearmc.net/spigotmc-updater
 findstr /c:"%v%" /i version.txt
 set RESULT1=%ERRORLEVEL%
 
-%content% --login -i -c "sleep 5s"
-
 findstr /c:"%v%" /i version_dummy.txt
 set RESULT2=%ERRORLEVEL%
 set v2=
 for /f "delims=" %%i in ('type version_dummy.txt') do set v2=%%i
-%content% --login -i -c "sleep 5s"
 
 cls
 
@@ -42,7 +41,7 @@ if %RESULT1%==%RESULT2% (
 	del /f version_dummy.txt
 ) else (
 	powershell.exe -command write-host "You are using. v.%v%. Latest Version v.%v2%. `r1nUpdate Available." -f green
-	@echo [Info] You are using. v.%v%. Latest Version v.%v2%. ..\log.txt
+	@echo [Info] You are using. v.%v%. Latest Version v.%v2%. >> ..\log.txt
 	@echo [Info] Update Available. >> ..\log.txt
 	
 	powershell -command Invoke-WebRequest -Uri http://thegearmc.net/spigotmc-updater/update.zip -OutFile Update-v.%v2%.zip
@@ -52,7 +51,7 @@ if %RESULT1%==%RESULT2% (
 		%content% --login -i -c "unzip -o Update-v.%v2%.zip -d ../"
 	) else (
 		powershell.exe -command write-host "Update to v.%v2% Failed. It could be due to no Read/Write access or https://thegearmc.net/spigotmc-updater/update.zip is being updated itself." -f red
-		@echo [ERROR] Update to v.%v2% Failed. It could be due to no Read/Write access or https://thegearmc.net/spigotmc-updater/update.zip is being updated itself.
+		@echo [ERROR] Update to v.%v2% Failed. It could be due to no Read/Write access or https://thegearmc.net/spigotmc-updater/update.zip is being updated itself. >> ..\log.txt
 		del /f version_dummy.txt
 		%content% --login -i -c "sleep 5s"
 		cd ..\

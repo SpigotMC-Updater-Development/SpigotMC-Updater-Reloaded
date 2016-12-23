@@ -28,17 +28,25 @@ if exist Git.zip (
 	goto gitzipfile
 )
 
-@echo Downloading Custom Git for this script...
-@echo [Info] Downloading Custom Git for this script... >> log.txt
-powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git.zip -OutFile Git.zip
-powershell -command Start-Sleep -s 10
-if exist Git.zip (
-	powershell.exe -command write-host "Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip" -f green
-	@echo [Info] Sucessfully generated %startdir%Git.zip from https://thegearmc.net/spigotmc-updater/Git.zip >> log.txt
+if exist "%PROGRAMFILES(X86)%" (
+      @echo Downloading Custom Git 64-bit for this script...
+	  @echo [Info] Downloading Custom Git 64-bit for this script... >> log.txt
+	  powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git.zip -OutFile Git.zip
+	  )
 ) else (
-	powershell.exe -command write-host "Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access." -f red
-	@echo [ERROR] Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access. >> log.txt
-	goto error
+      @echo Downloading Custom Git 32-bit for this script...
+	  @echo [Info] Downloading Custom Git 32-bit for this script... >> log.txt
+	  powershell -command Invoke-WebRequest -Uri https://thegearmc.net/spigotmc-updater/Git32.zip -OutFile Git.zip
+)
+
+powershell -command Start-Sleep -s 5
+if exist Git.zip (
+	  powershell.exe -command write-host "Sucessfully generated %startdir%Git.zip from thegearmc.net" -f green
+	  @echo [Info] Sucessfully generated %startdir%Git.zip from thegearmc.net >> log.txt
+) else (
+	  powershell.exe -command write-host "Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access." -f red
+	  @echo [ERROR] Failed to download %startdir%Git.zip. Make sure you have an Internet Connection or Read and Write Access. >> log.txt
+	  goto error
 )
 
 :gitzipfile

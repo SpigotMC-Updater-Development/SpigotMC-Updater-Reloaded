@@ -11,16 +11,16 @@ if exist "%PROGRAMFILES(X86)%" (
 @echo Resized for script :D
 cls
 
-powershell -command Start-Sleep -m 2000
+powershell -command Start-Sleep -s 1
 if exist tasks\session.txt (
     del /f tasks\session.txt
 )
 
-powershell -command Start-Sleep -m 2000
+powershell -command Start-Sleep -s 1
 if exist log.txt (
     del /f log.txt
 )
-powershell -command Start-Sleep -m 2000
+powershell -command Start-Sleep -s 1
 
 for /f %%j in ("java.exe") do (
     set JAVA_HOME=%%~dp$PATH:j
@@ -30,7 +30,7 @@ if %JAVA_HOME%.==. (
     powershell.exe -command write-host "You Do not have Java installed. Please install this dependency and try again." -f red
 	@echo [ERROR] You Do not have Java installed. Please install this dependency and try again. >> log.txt
 	explorer "http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html"
-	powershell -command Start-Sleep -m 2000
+	powershell -command Start-Sleep -s 5
 	exit
 ) else (
     goto foundjava
@@ -134,10 +134,8 @@ if "%v%"=="Beta-Build" (
 		powershell.exe -command write-host "Unable to get the beta build. You may not get the recommended fixes." -f yellow
 		@echo [WARNING] Unable to get the beta build. You may not get the recommended fixes. >> log.txt
 		powershell -command Start-Sleep -s 15
-	)
-	
+	)	
 	@echo Do u Beta m8. >> tasks\beta.txt
-	
 )
 
 title Loading SpigotMC Updater v.%v%...
@@ -182,6 +180,8 @@ if exist tasks/error.txt (
 
 cls
 
+:boot
+
 set content=Git\bin\bash.exe
 
 @echo Thanks for Using SpigotMC Updater v.%v% by Legoman99573.
@@ -196,7 +196,23 @@ if exist tasks/beta.txt (
 	goto startup
 )
 
-echo.
+powershell -command Invoke-WebRequest -Uri http://thegearmc.net/spigotmc-updater/update.txt -OutFile tasks\version2.txt
+
+set v2=
+for /f "delims=" %%i in ('type tasks\version2.txt') do set v2=%%i
+%content% --login -i -c "sleep 3s"
+
+if "%v%"=="%v2%" (
+	@echo [Info] No Updates found >> log.txt
+	del /f tasks\version2.txt
+) else (
+	powershell.exe -command write-host "You are running an outdated version of SpigotMC Updater. We recommend Updating to get support." -f yellow
+	del /f tasks\version2.txt
+	%content% --login -i -c "sleep 5s"
+)
+
+cls
+
 @echo Do you want to Check for updates 
 Set /P _2=(Y, N) || Set _2=NothingChosen
 If "%_2%"=="NothingChosen" goto :skip

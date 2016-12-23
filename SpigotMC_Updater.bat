@@ -2,7 +2,12 @@
 
 title Loading SpigotMC Updater...
 
-mode con: cols=180 lines=50
+if exist "%PROGRAMFILES(X86)%" (
+	mode con: cols=180 lines=50
+) else (
+	mode con: cols=130 lines=40
+)
+
 @echo Resized for script :D
 cls
 
@@ -15,6 +20,23 @@ powershell -command Start-Sleep -m 2000
 if exist log.txt (
     del /f log.txt
 )
+powershell -command Start-Sleep -m 2000
+
+for /f %%j in ("java.exe") do (
+    set JAVA_HOME=%%~dp$PATH:j
+)
+
+if %JAVA_HOME%.==. (
+    powershell.exe -command write-host "You Do not have Java installed. Please install this dependency and try again." -f red
+	@echo [ERROR] You Do not have Java installed. Please install this dependency and try again. >> log.txt
+	explorer "http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html"
+	powershell -command Start-Sleep -m 2000
+	exit
+) else (
+    goto foundjava
+)
+
+:foundjava
 
 set startdir=%~dp0
 

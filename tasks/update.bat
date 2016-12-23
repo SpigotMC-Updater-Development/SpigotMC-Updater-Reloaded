@@ -40,7 +40,7 @@ if %RESULT1%==%RESULT2% (
 	@echo [WARNING] No Updates available. >> ..\log.txt
 	del /f version_dummy.txt
 ) else (
-	powershell.exe -command write-host "You are using. v.%v%. Latest Version v.%v2%. `r1nUpdate Available." -f green
+	powershell.exe -command write-host "You are using. v.%v%. Latest Version v.%v2%. `r`nUpdate Available." -f green
 	@echo [Info] You are using. v.%v%. Latest Version v.%v2%. >> ..\log.txt
 	@echo [Info] Update Available. >> ..\log.txt
 	
@@ -70,12 +70,10 @@ if %RESULT1%==%RESULT2% (
 	rename version_dummy.txt version.txt
 	%content% --login -i -c "sleep 5s"
 	
-	set v=
-	for /f "delims=" %%i in ('type version.txt') do set v=%%i
 	cls
 	
-	@echo Finished Updating to v.%v%. Resuming script...
-	@echo [Info] Finished Updating to v.%v%. Resuming script... >> ..\log.txt
+	@echo Finished Updating to v.%v2%. Resuming script...
+	@echo [Info] Finished Updating to v.%v2%. Resuming script... >> ..\log.txt
 )
 %content% --login -i -c "sleep 10s"
 cd ..\

@@ -49,6 +49,7 @@ if %RESULT1%==%RESULT2% (
 	
 	if exist Update-v.%v2%.zip (
 		%content% --login -i -c "unzip -o Update-v.%v2%.zip -d ../"
+		del /f Update-v.*.zip
 	) else (
 		powershell.exe -command write-host "Update to v.%v2% Failed. It could be due to no Read/Write access or https://thegearmc.net/spigotmc-updater/update.zip is being updated itself." -f red
 		@echo [ERROR] Update to v.%v2% Failed. It could be due to no Read/Write access or https://thegearmc.net/spigotmc-updater/update.zip is being updated itself. >> ..\log.txt

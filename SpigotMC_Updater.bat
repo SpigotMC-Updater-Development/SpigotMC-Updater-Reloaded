@@ -228,6 +228,38 @@ start /b /wait tasks\update.bat
 set v=
 for /f "delims=" %%i in ('type tasks\version.txt') do set v=%%i
 
+if exist setup.bat (
+    powershell.exe -command write-host "You have updated, so we are running setup to make sure nothing has changed." -f yellow
+    @echo [WARNING] You have updated, so we are running setup to make sure nothing has changed. >> log.txt
+    powershell -command Start-Sleep -s 5
+    goto setup2
+) else (
+    @echo [WARNING] %startdir%setup.bat is missing. It is maybe due to no updates. This is not an error message, this is a check that happens when you dont get an update. >> log.txt
+    goto startup
+)
+
+:setup2
+@echo I am a dummy file xD >> tasks\session.txt
+start /b /wait setup.bat
+powershell -command Start-Sleep -s 5
+if exist tasks/error.txt (
+   title Closing SpigotMC Updater v.%v%...
+   del /f tasks\error.txt
+   cls
+   powershell.exe -command write-host "Setup has failed. Try running the setup again." -f red
+   @echo [ERROR] Setup has failed. Try running the setup again. >> log.txt
+   powershell -command Start-Sleep -s 5
+   exit
+) else (
+    title Loading SpigotMC Updater v.%v%...
+    cls
+    del /f setup.bat
+    cls
+    powershell.exe -command write-host "Setup Completed." -f green
+    @echo [Info] Setup Completed. >> log.txt
+    powershell -command Start-Sleep -s 5
+)
+
 title Booting SpigotMC Updater v.%v%...
 
 goto startup

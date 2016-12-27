@@ -18,6 +18,10 @@ title Running SpigotMC Updater v.%v% Nukkit Module
 
 %content% --login -i -c "sleep 5s"
 
+powershell.exe -command write-host "Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar? Please use PaperSpigot, Spigot, or CraftBukkit." -f yellow
+@echo [WARNING] Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar? Please use PaperSpigot, Spigot or CraftBukkit. >> ..\log.txt
+%content% --login -i -c "sleep 15s"
+
 @echo Updating nukkit.jar
 @echo [Info] Updating nukkit.jar >> ..\log.txt
 If not exist ../nukkit/ (
@@ -39,7 +43,7 @@ If not exist ../nukkit/ (
 cls
 
 If exist ../nukkit/nukkit-1.*.jar (
-	del /f ..\nukkit/nukkit-1.*.jar
+	del /f ..\nukkit\nukkit-1.*.jar
 	%content% --login -i -c "sleep 5s"
 	If not exist ../nukkit/nukkit-1.*.jar (
 		powershell.exe -command write-host "Deleted the old nukkit.jar." -f green
@@ -87,6 +91,7 @@ If exist ../nukkit/nukkit.zip (
 		
 	) else (
 		powershell.exe -command write-host "Unable to extract nukkit.zip. Make sure the folder nukkit has Read and Write access." -f red
+		@echo [ERROR] Unable to extract nukkit.zip. Make sure the folder nukkit has Read and Write access. ..\log.txt
 		del /f ..\nukkit\nukkit.zip
 		%content% --login -i -c "sleep 5s"
 		goto error

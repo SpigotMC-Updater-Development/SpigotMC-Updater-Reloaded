@@ -18,8 +18,8 @@ title Running SpigotMC Updater v.%v% Nukkit Module
 
 %content% --login -i -c "sleep 5s"
 
-powershell.exe -command write-host "Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar? Please use PaperSpigot, Spigot, or CraftBukkit." -f yellow
-@echo [WARNING] Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar? Please use PaperSpigot, Spigot or CraftBukkit. >> ..\log.txt
+powershell.exe -command write-host "Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar, Please use PaperSpigot, Spigot, or CraftBukkit." -f yellow
+@echo [WARNING] Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar, Please use PaperSpigot, Spigot or CraftBukkit. >> ..\log.txt
 %content% --login -i -c "sleep 15s"
 
 @echo Updating nukkit.jar

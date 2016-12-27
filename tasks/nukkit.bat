@@ -22,6 +22,8 @@ powershell.exe -command write-host "Nukkit only works for Minecraft PE Servers. 
 @echo [WARNING] Nukkit only works for Minecraft PE Servers. If you are wanting a PC Server jar, Please use PaperSpigot, Spigot or CraftBukkit. >> ..\log.txt
 %content% --login -i -c "sleep 15s"
 
+cls
+
 @echo Updating nukkit.jar
 @echo [Info] Updating nukkit.jar >> ..\log.txt
 If not exist ../nukkit/ (
@@ -64,6 +66,9 @@ cls
 @echo [Info] Downloading nukkit.zip... >> ..\log.txt
 %content% --login -i -c "curl -o ../nukkit/nukkit.zip http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip"
 %content% --login -i -c "sleep 5s"
+
+cls
+
 If exist ../nukkit/nukkit.zip (
 	powershell.exe -command write-host "Successfully downloaded nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip" -f green
 	@echo [Info] Successfully downloaded nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip >> ..\log.txt
@@ -73,6 +78,9 @@ If exist ../nukkit/nukkit.zip (
 	@echo [Info] Extracting nukkit.zip... ..\log.txt
 	%content% --login -i -c "unzip -o ../nukkit/nukkit.zip -d ../nukkit"
 	%content% --login -i -c "sleep 5s"
+	
+	cls
+	
 	if exist ../nukkit/target/nukkit-1.*.jar (
 		powershell.exe -command write-host "Successfully extracted nukkit.zip. Deleting zip and finishing up..." -f green
 		@echo [Info] Successfully extracted nukkit.zip. Deleting zip and finishing up... >> ..\log.txt
@@ -81,6 +89,9 @@ If exist ../nukkit/nukkit.zip (
 		move ..\nukkit\target\nukkit-1.*.jar ..\nukkit
 		%content% --login -i -c "sleep 5s"
 		rd /s /q ..\nukkit\target
+		
+		cls
+		
 		if exist ../nukkit/nukkit-1.*.jar (
 			powershell.exe -command write-host "Successfully extracted grabbed nukkit.jar." -f green
 			@echo [Info] Successfully extracted grabbed nukkit.jar. >> ..\log.txt

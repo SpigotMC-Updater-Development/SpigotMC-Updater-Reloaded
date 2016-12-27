@@ -85,6 +85,11 @@ if "%v%"=="Beta-Build" (
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
 			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\menu.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\nukkit.bat >> log.txt
+			
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\nukkit.bat %startdir%tasks
+			powershell -command Start-Sleep -s 1
+			@echo [Info] Updated %startdir%tasks\nukkit.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\paper.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\paper.bat %startdir%tasks
@@ -213,13 +218,10 @@ if "%v%"=="%v2%" (
 
 cls
 
-@echo Do you want to Check for updates 
-Set /P _2=(Y, N) || Set _2=NothingChosen
-If "%_2%"=="NothingChosen" goto :skip
-If /i "%_2%"=="Y" goto autoupdate
-If /i "%_2%"=="y" goto autoupdate
-If /i "%_2%"=="N" goto skip
-If /i "%_2%"=="n" goto skip
+@echo Do you want to Check for updates... [y or n]
+CHOICE /C yn /N /M "> "
+if ERRORLEVEL 2 goto skip
+if ERRORLEVEL 1 goto autoupdate
 
 :autoupdate
 
@@ -292,6 +294,17 @@ if exist tasks/menu.bat (
 ) else (
     powershell.exe -command write-host "Cannot find %startdir%tasks\menu.bat." -f red
     @echo [ERROR] Cannot find %startdir%tasks\menu.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
+if exist tasks/nukkit.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\nukkit.bat." -f green
+    @echo [Info] Found %startdir%tasks\nukkit.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\nukkit.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\nukkit.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )

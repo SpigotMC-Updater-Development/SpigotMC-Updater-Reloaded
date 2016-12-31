@@ -75,7 +75,7 @@ If exist ../nukkit/nukkit.zip (
 	%content% --login -i -c "sleep 5s"
 	cls
 	@echo Extracting nukkit.zip...
-	@echo [Info] Extracting nukkit.zip... ..\log.txt
+	@echo [Info] Extracting nukkit.zip... >> ..\log.txt
 	%content% --login -i -c "unzip -o ../nukkit/nukkit.zip -d ../nukkit"
 	%content% --login -i -c "sleep 5s"
 	
@@ -102,7 +102,7 @@ If exist ../nukkit/nukkit.zip (
 		
 	) else (
 		powershell.exe -command write-host "Unable to extract nukkit.zip. Make sure the folder nukkit has Read and Write access." -f red
-		@echo [ERROR] Unable to extract nukkit.zip. Make sure the folder nukkit has Read and Write access. ..\log.txt
+		@echo [ERROR] Unable to extract nukkit.zip. Make sure the folder nukkit has Read and Write access. >> ..\log.txt
 		del /f ..\nukkit\nukkit.zip
 		%content% --login -i -c "sleep 5s"
 		goto error

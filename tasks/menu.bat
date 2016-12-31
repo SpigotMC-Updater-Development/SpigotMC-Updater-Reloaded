@@ -30,11 +30,10 @@ title SpigotMC Updater v.%v%
 :load
 cls
 
-powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Grabs Nukkit `r`n 8. Grabs Glowstone `r`n 9. Report a bug in this script `r`n a. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO" -f darkyellow
+powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Grabs Nukkit `r`n 8. Grabs Glowstone `r`n 9. Go to page 2 `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO" -f darkyellow
 
-CHOICE /C 123456789a /N /M "> "
-IF ERRORLEVEL a GOTO exit
-IF ERRORLEVEL 9 GOTO bug
+CHOICE /C 123456789 /N /M "> "
+IF ERRORLEVEL 9 GOTO page2
 IF ERRORLEVEL 8 GOTO glowstone
 IF ERRORLEVEL 7 GOTO nukkit
 IF ERRORLEVEL 6 GOTO paper
@@ -44,10 +43,16 @@ IF ERRORLEVEL 3 GOTO clean
 IF ERRORLEVEL 2 GOTO run
 IF ERRORLEVEL 1 GOTO update
 
-:commandnotfound
-@echo Command not found. Try help for help menu
-%content% --login -i -c "sleep 5s"
-goto start
+:page2
+
+cls
+
+powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Go to page 1 `r`n 2. Report a bug in this script `r`n 3. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO" -f darkyellow
+
+CHOICE /C 123 /N /M "> "
+IF ERRORLEVEL 3 GOTO exit
+IF ERRORLEVEL 2 GOTO bug
+IF ERRORLEVEL 1 GOTO load
 
 :update
 cls

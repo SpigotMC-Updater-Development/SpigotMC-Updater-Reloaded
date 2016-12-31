@@ -30,11 +30,12 @@ title SpigotMC Updater v.%v%
 :load
 cls
 
-powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Grabs Nukkit `r`n 8. Report a bug in this script `r`n 9. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo" -f darkyellow
+powershell.exe -command write-host "Welcome to SpigotMC Updater v.%v% `r`n `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n What task do you want to run? Must use numbers and press enter. `r`n 1. Update Buildtools `r`n 2. Run Buildtools `r`n 3. Cleans BuildTools Folder `r`n 4. Repair a plugin with the Spigot Special Recipe `r`n 5. Grab BungeeCord `r`n 6. Grabs PaperSpigot `r`n 7. Grabs Nukkit `r`n 8. Grabs Glowstone `r`n 9. Report a bug in this script `r`n a. Close this script safely `r`noOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOo `r`n0oOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO" -f darkyellow
 
-CHOICE /C 123456789 /N /M "> "
-IF ERRORLEVEL 9 GOTO exit
-IF ERRORLEVEL 8 GOTO bug
+CHOICE /C 123456789a /N /M "> "
+IF ERRORLEVEL a GOTO exit
+IF ERRORLEVEL 9 GOTO bug
+IF ERRORLEVEL 8 GOTO glowstone
 IF ERRORLEVEL 7 GOTO nukkit
 IF ERRORLEVEL 6 GOTO paper
 IF ERRORLEVEL 5 GOTO bungee
@@ -76,6 +77,11 @@ goto start
 :nukkit
 cls
 start /b /wait tasks\nukkit.bat
+goto start
+
+:glowstone
+cls
+start /b /wait tasks\glowstone.bat
 goto start
 
 :bug

@@ -109,8 +109,8 @@ If exist ../nukkit/nukkit.zip (
 	)
 	
 ) else (
-	powershell.exe -command write-host "Failed to Download nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip. Maybe you dont have Read and Write Access in the bungee folder or ci.mengcraft.com:8080 is offline." -f red
-	@echo [ERROR] Failed to Download nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip. Maybe you dont have Read and Write Access in the bungee folder or ci.mengcraft.com:8080 is offline. >> ..\log.txt
+	powershell.exe -command write-host "Failed to Download nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip. Maybe you dont have Read and Write Access in the nukkit folder or ci.mengcraft.com:8080 is offline." -f red
+	@echo [ERROR] Failed to Download nukkit.zip from http://ci.mengcraft.com:8080/job/nukkit/lastStableBuild/artifact/target/*zip*/target.zip. Maybe you dont have Read and Write Access in the nukkit folder or ci.mengcraft.com:8080 is offline. >> ..\log.txt
 	%content% --login -i -c "sleep 5s"
 	goto error
 )

@@ -64,8 +64,8 @@ If exist ../paper/paperclip.jar (
 	powershell.exe -command write-host "Successfully downloaded paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar." -f green
 	@echo [Info] Successfully downloaded paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar. >> ..\log.txt
 ) else (
-	powershell.exe -command write-host "Failed to Download paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar. Maybe you dont have Read and Write Access in the bungee folder or ci.destroystokyo.com is offline." -f red
-	@echo [ERROR] Failed to Download paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar. Maybe you dont have Read and Write Access in the bungee folder or ci.destroystokyo.com is offline. >> ..\log.txt
+	powershell.exe -command write-host "Failed to Download paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar. Maybe you dont have Read and Write Access in the paper folder or ci.destroystokyo.com is offline." -f red
+	@echo [ERROR] Failed to Download paperclip.jar from https://ci.destroystokyo.com/job/PaperSpigot/lastSuccessfulBuild/artifact/paperclip.jar. Maybe you dont have Read and Write Access in the paper folder or ci.destroystokyo.com is offline. >> ..\log.txt
 	goto error
 )
 

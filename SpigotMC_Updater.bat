@@ -80,6 +80,11 @@ if "%v%"=="Beta-Build" (
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\bungee.bat %startdir%tasks
 			powershell -command Start-Sleep -s 1
 			@echo [Info] Updated %startdir%tasks\bungee.bat >> log.txt
+			@echo [Info] Updating %startdir%tasks\glowstone.bat >> log.txt
+			
+			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\glowstone.bat %startdir%tasks
+			powershell -command Start-Sleep -s 1
+			@echo [Info] Updated %startdir%tasks\glowstone.bat >> log.txt
 			@echo [Info] Updating %startdir%tasks\menu.bat >> log.txt
 			
 			copy /y beta\SpigotMC-Updater-Reloaded-master\tasks\menu.bat %startdir%tasks
@@ -283,6 +288,17 @@ if exist tasks/bungee.bat (
 ) else (
     powershell.exe -command write-host "Cannot find %startdir%tasks\bungee.bat." -f red
     @echo [ERROR] Cannot find %startdir%bungee\menu.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+    exit
+)
+
+if exist tasks/glowstone.bat (
+    powershell.exe -command write-host "Found %startdir%tasks\glowstone.bat." -f green
+    @echo [Info] Found %startdir%tasks\glowstone.bat. >> log.txt
+    %content% --login -i -c "sleep 5s"
+) else (
+    powershell.exe -command write-host "Cannot find %startdir%tasks\glowstone.bat." -f red
+    @echo [ERROR] Cannot find %startdir%tasks\glowstone.bat. >> log.txt
     %content% --login -i -c "sleep 5s"
     exit
 )
